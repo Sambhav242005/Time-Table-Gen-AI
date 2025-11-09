@@ -1,0 +1,80 @@
+{
+    "teachers": [
+        {
+            "id": 1,
+            "name": "Dr. Alan Turing",
+            "code": "AT",
+            "max_daily_load": 4,
+            "max_weekly_load": 16
+        },
+        {
+            "id": 2,
+            "name": "Dr. Grace Hopper",
+            "code": "GH",
+            "max_daily_load": 5,
+            "max_weekly_load": 18
+        }
+    ],
+    "subjects": [
+        {
+            "id": 1,
+            "code": "CS101",
+            "name": "Intro to Computer Science",
+            "credits": 3,
+            "weekly_lecture_slots": 3,
+            "is_lab": false
+        },
+        {
+            "id": 2,
+            "code": "CS201",
+            "name": "Data Structures",
+            "credits": 4,
+            "weekly_lecture_slots": 4,
+            "is_lab": true
+        }
+    ],
+    "sections": [
+        {
+            "id": 1,
+            "name": "A",
+            "semester": 1,
+            "strength": 55
+        },
+        {
+            "id": 2,
+            "name": "B",
+            "semester": 3,
+            "strength": 50
+        }
+    ],
+    "rooms": [
+        {
+            "id": 1,
+            "name": "R101",
+            "capacity": 60,
+            "type": "CLASSROOM",
+            "lab_type": NaN
+        },
+        {
+            "id": 2,
+            "name": "L201",
+            "capacity": 30,
+            "type": "LAB",
+            "lab_type": "CS"
+        },
+        {
+            "id": 3,
+            "name": "R102",
+            "capacity": 60,
+            "type": "CLASSROOM",
+            "lab_type": NaN
+        },
+        {
+            "id": 4,
+            "name": "L202",
+            "capacity": 30,
+            "type": "LAB",
+            "lab_type": "ECE"
+        }
+    ]
+}

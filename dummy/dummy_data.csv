@@ -1,0 +1,5 @@
+id,name,capacity,type,lab_type
+1,R101,60,CLASSROOM,
+2,L201,30,LAB,CS
+3,R102,60,CLASSROOM,
+4,L202,30,LAB,ECE
