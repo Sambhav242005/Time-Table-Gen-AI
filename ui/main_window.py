@@ -15,6 +15,12 @@ from core.generator_thread import TimetableGeneratorThread
 from core.json_parser import TimetableJSONParser
 from core.dataframe_parser import dataframe_to_objects
 from core.data_models import Room, RoomType, Section, Subject, Teacher
+from ui.pages.teacher_page import TeacherPage
+from ui.pages.subject_page import SubjectPage
+from ui.pages.section_page import SectionPage
+from ui.pages.room_page import RoomPage
+from ui.pages.generation_page import GenerationPage
+from ui.pages.view_page import ViewPage
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
@@ -28,10 +34,6 @@ class AdvancedTimetableApp(QMainWindow):
         self.setGeometry(100, 100, 1200, 800)
 
         # Data storage
-        self.teachers = []
-        self.subjects = []
-        self.sections = []
-        self.rooms = []
         self.generated_timetables = {}
 
         # Thread for generation
@@ -90,19 +92,28 @@ class AdvancedTimetableApp(QMainWindow):
 
     def populate_content_pages(self):
         """Add content pages to the stack."""
-        self.content_stack.addWidget(self.create_home_page())      # 0
-        self.content_stack.addWidget(self.create_setup_page())     # 1
-        self.content_stack.addWidget(self.create_teachers_page())  # 2
-        self.content_stack.addWidget(self.create_subjects_page())  # 3
-        self.content_stack.addWidget(self.create_sections_page())  # 4
-        self.content_stack.addWidget(self.create_rooms_page())     # 5
-        self.content_stack.addWidget(self.create_generate_page())  # 6
-        self.content_stack.addWidget(self.create_view_page())      # 7
+        self.home_page = self.create_home_page()
+        self.setup_page = self.create_setup_page()
+        self.teacher_page = TeacherPage()
+        self.subject_page = SubjectPage()
+        self.section_page = SectionPage()
+        self.room_page = RoomPage()
+        self.generate_page = GenerationPage(self.start_generation)
+        self.view_page = ViewPage()
+
+        self.content_stack.addWidget(self.home_page)      # 0
+        self.content_stack.addWidget(self.setup_page)     # 1
+        self.content_stack.addWidget(self.teacher_page)  # 2
+        self.content_stack.addWidget(self.subject_page)  # 3
+        self.content_stack.addWidget(self.section_page)  # 4
+        self.content_stack.addWidget(self.room_page)     # 5
+        self.content_stack.addWidget(self.generate_page)  # 6
+        self.content_stack.addWidget(self.view_page)      # 7
 
     def navigate_to_page(self, page_index):
         self.content_stack.setCurrentIndex(page_index)
         if page_index == 7:  # View page
-            self.update_view_page()
+            self.view_page.update_view(self.generated_timetables)
 
     # ---------------- HOME PAGE ----------------
     def create_home_page(self):
@@ -205,7 +216,10 @@ class AdvancedTimetableApp(QMainWindow):
                 return
 
             structured_data = TimetableJSONParser.serialize_data(
-                self.teachers, self.subjects, self.sections, self.rooms
+                self.teacher_page.get_data(),
+                self.subject_page.get_data(),
+                self.section_page.get_data(),
+                self.room_page.get_data()
             )
             TimetableJSONParser.save_to_json(file_path, structured_data)
             QMessageBox.information(self, "Export Successful", f"Data saved to:\n{file_path}")
@@ -222,8 +236,11 @@ class AdvancedTimetableApp(QMainWindow):
                 return
 
             data = TimetableJSONParser.load_from_json(file_path)
-            self.teachers, self.subjects, self.sections, self.rooms = TimetableJSONParser.deserialize_data(data)
-            self.update_all_tables()
+            teachers, subjects, sections, rooms = TimetableJSONParser.deserialize_data(data)
+            self.teacher_page.set_data(teachers)
+            self.subject_page.set_data(subjects)
+            self.section_page.set_data(sections)
+            self.room_page.set_data(rooms)
             QMessageBox.information(self, "Import Successful", "Data imported successfully!")
         except Exception as e:
             QMessageBox.critical(self, "Import Failed", str(e))
@@ -274,194 +291,57 @@ class AdvancedTimetableApp(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Conversion Failed", str(e))
 
-    # ---------------- TABLE SETUP PAGES ----------------
-    def create_teachers_page(self):
-        page = QWidget()
-        layout = QVBoxLayout()
-        title = QLabel("TEACHERS MANAGEMENT")
-        title.setFont(QFont("Arial", 20, QFont.Bold))
-        layout.addWidget(title)
-        self.teachers_table = QTableWidget()
-        self.teachers_table.setColumnCount(4)
-        self.teachers_table.setHorizontalHeaderLabels(["Name", "Code", "Max Daily", "Weekly"])
-        layout.addWidget(self.teachers_table)
-        self.update_teachers_table()
-        page.setLayout(layout)
-        return page
-
-    def create_subjects_page(self):
-        page = QWidget()
-        layout = QVBoxLayout()
-        title = QLabel("SUBJECTS MANAGEMENT")
-        title.setFont(QFont("Arial", 20, QFont.Bold))
-        layout.addWidget(title)
-        self.subjects_table = QTableWidget()
-        self.subjects_table.setColumnCount(5)
-        self.subjects_table.setHorizontalHeaderLabels(["Code", "Name", "Credits", "Slots", "Lab"])
-        layout.addWidget(self.subjects_table)
-        self.update_subjects_table()
-        page.setLayout(layout)
-        return page
-
-    def create_sections_page(self):
-        page = QWidget()
-        layout = QVBoxLayout()
-        title = QLabel("SECTIONS MANAGEMENT")
-        title.setFont(QFont("Arial", 20, QFont.Bold))
-        layout.addWidget(title)
-        self.sections_table = QTableWidget()
-        self.sections_table.setColumnCount(3)
-        self.sections_table.setHorizontalHeaderLabels(["Name", "Semester", "Strength"])
-        layout.addWidget(self.sections_table)
-        self.update_sections_table()
-        page.setLayout(layout)
-        return page
-
-    def create_rooms_page(self):
-        page = QWidget()
-        layout = QVBoxLayout()
-        title = QLabel("ROOMS MANAGEMENT")
-        title.setFont(QFont("Arial", 20, QFont.Bold))
-        layout.addWidget(title)
-        self.rooms_table = QTableWidget()
-        self.rooms_table.setColumnCount(4)
-        self.rooms_table.setHorizontalHeaderLabels(["Name", "Type", "Capacity", "Lab Type"])
-        layout.addWidget(self.rooms_table)
-        self.update_rooms_table()
-        page.setLayout(layout)
-        return page
-
-    # ---------------- GENERATION PAGE ----------------
-    def create_generate_page(self):
-        page = QWidget()
-        layout = QVBoxLayout()
-        title = QLabel("GENERATE TIMETABLES")
-        title.setFont(QFont("Arial", 24, QFont.Bold))
-        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        layout.addWidget(title)
-        self.generate_btn = QPushButton("GENERATE")
-        self.generate_btn.setStyleSheet(self.get_button_style("#28a745"))
-        self.generate_btn.clicked.connect(self.start_generation)
-        layout.addWidget(self.generate_btn, alignment=Qt.AlignmentFlag.AlignCenter)
-        page.setLayout(layout)
-        return page
-
-    def create_view_page(self):
-        page = QWidget()
-        layout = QVBoxLayout()
-        title = QLabel("VIEW GENERATED TIMETABLES")
-        title.setFont(QFont("Arial", 20, QFont.Bold))
-        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        
-        self.view_tabs = QTabWidget()
-        
-        layout.addWidget(title)
-        layout.addWidget(self.view_tabs)
-        page.setLayout(layout)
-        return page
-
     # ---------------- DATA UPDATES ----------------
     def setup_sample_data(self):
         """Sample data setup."""
-        self.teachers = [
+        teachers = [
             Teacher(1, "Dr. John Smith", "JS", 6, 20),
             Teacher(2, "Prof. Sarah Wilson", "SW", 5, 18)
         ]
-        self.subjects = [
-            Subject(1, "MATH101", "Mathematics I", 4, 4),
-            Subject(2, "PHY101", "Physics I", 3, 3)
+        
+        subjects = [
+            Subject(1, "MATH101", "Mathematics I", 4, theory_lectures_per_week=4, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(2, "PHY101", "Physics I", 3, theory_lectures_per_week=2, lab_hours_per_week=2, lab_batch_size=20),
+            Subject(3, "PHY101(p)", "Physics I (Lab)", 3, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=20),
+            Subject(4, "CS101", "Computer Science I", 4, theory_lectures_per_week=3, lab_hours_per_week=2, lab_batch_size=25),
+            Subject(5, "CS101(p)", "Computer Science I (Lab)", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=25),
         ]
-        self.sections = [Section(1, "CSE-1A", 1, 60)]
-        self.rooms = [Room(1, "Room 101", 70, RoomType.CLASSROOM)]
-        self.update_all_tables()
+        
+        sections = [
+            Section(1, "CSE-1A", 1, 60)
+        ]
+        
+        rooms = [
+            Room(1, "Room 101", 70, RoomType.CLASSROOM),
+            Room(2, "Physics Lab", 30, RoomType.LAB, "Physics"),
+            Room(3, "Computer Lab 1", 30, RoomType.LAB, "Computer Science"),
+        ]
+        
+        self.teacher_page.set_data(teachers)
+        self.subject_page.set_data(subjects)
+        self.section_page.set_data(sections)
+        self.room_page.set_data(rooms)
 
     def initialize_sample_data(self):
         self.setup_sample_data()
         QMessageBox.information(self, "Initialized", "Sample data created!")
 
-    def update_all_tables(self):
-        self.update_teachers_table()
-        self.update_subjects_table()
-        self.update_sections_table()
-        self.update_rooms_table()
-
-    def update_teachers_table(self):
-        self.teachers_table.setRowCount(len(self.teachers))
-        for i, t in enumerate(self.teachers):
-            self.teachers_table.setItem(i, 0, QTableWidgetItem(str(t.name)))
-            self.teachers_table.setItem(i, 1, QTableWidgetItem(str(t.code)))
-            self.teachers_table.setItem(i, 2, QTableWidgetItem(str(t.max_daily_load)))
-            self.teachers_table.setItem(i, 3, QTableWidgetItem(str(t.max_weekly_load)))
-
-    def update_subjects_table(self):
-        self.subjects_table.setRowCount(len(self.subjects))
-        for i, s in enumerate(self.subjects):
-            self.subjects_table.setItem(i, 0, QTableWidgetItem(str(s.code)))
-            self.subjects_table.setItem(i, 1, QTableWidgetItem(str(s.name)))
-            self.subjects_table.setItem(i, 2, QTableWidgetItem(str(s.credits)))
-            self.subjects_table.setItem(i, 3, QTableWidgetItem(str(s.weekly_lecture_slots)))
-            self.subjects_table.setItem(i, 4, QTableWidgetItem("Yes" if s.is_lab else "No"))
-
-    def update_sections_table(self):
-        self.sections_table.setRowCount(len(self.sections))
-        for i, s in enumerate(self.sections):
-            self.sections_table.setItem(i, 0, QTableWidgetItem(str(s.name)))
-            self.sections_table.setItem(i, 1, QTableWidgetItem(str(s.semester)))
-            self.sections_table.setItem(i, 2, QTableWidgetItem(str(s.strength)))
-            
-    def update_rooms_table(self):
-        self.rooms_table.setRowCount(len(self.rooms))
-        for i, r in enumerate(self.rooms):
-            self.rooms_table.setItem(i, 0, QTableWidgetItem(str(r.name)))
-            self.rooms_table.setItem(i, 1, QTableWidgetItem(str(r.type.value)))
-            self.rooms_table.setItem(i, 2, QTableWidgetItem(str(r.capacity)))
-            self.rooms_table.setItem(i, 3, QTableWidgetItem(str(r.lab_type or "N/A")))
-
-    def update_view_page(self):
-        self.view_tabs.clear()
-        if not self.generated_timetables:
-            return
-
-        for section_name, timetable in self.generated_timetables.items():
-            table = self._create_timetable_table(timetable)
-            self.view_tabs.addTab(table, section_name)
-
-    def _create_timetable_table(self, timetable_data):
-        if not timetable_data:
-            return QLabel("No timetable generated for this section.")
-
-        days = list(timetable_data.keys())
-        if not days:
-            return QLabel("Timetable data is empty.")
-            
-        slots = list(timetable_data[days[0]].keys())
-        
-        table = QTableWidget(len(slots), len(days))
-        table.setHorizontalHeaderLabels(days)
-        table.setVerticalHeaderLabels(slots)
-
-        for day_idx, day in enumerate(days):
-            for slot_idx, slot in enumerate(slots):
-                entry = timetable_data[day][slot]
-                if entry:
-                    item_text = f"{entry['subject']}\n({entry['teacher']})\n[{entry['room']}]"
-                    table.setItem(slot_idx, day_idx, QTableWidgetItem(item_text))
-        
-        table.resizeRowsToContents()
-        table.resizeColumnsToContents()
-        return table
-
     # ---------------- GENERATION THREAD ----------------
     def start_generation(self):
-        if not self.teachers or not self.subjects or not self.sections or not self.rooms:
+        teachers = self.teacher_page.get_data()
+        subjects = self.subject_page.get_data()
+        sections = self.section_page.get_data()
+        rooms = self.room_page.get_data()
+
+        if not teachers or not subjects or not sections or not rooms:
             QMessageBox.warning(self, "Missing Data", "Please setup all data before generation.")
             return
 
         config = {
-            "teachers": self.teachers,
-            "subjects": self.subjects,
-            "sections": [s.name for s in self.sections],
-            "rooms": self.rooms
+            "teachers": teachers,
+            "subjects": subjects,
+            "sections": [s.name for s in sections],
+            "rooms": rooms
         }
         self.generation_thread = TimetableGeneratorThread(config)
         self.generation_thread.generation_completed.connect(self.on_generation_completed)
@@ -471,20 +351,28 @@ class AdvancedTimetableApp(QMainWindow):
         self.generated_timetables = timetables
         TimetableJSONParser.save_to_json("output/generated_timetables.json", timetables)
         QMessageBox.information(self, "Success", "Timetables generated and saved to JSON!")
-        self.update_view_page()
+        self.view_page.update_view(self.generated_timetables)
         self.navigate_to_page(7)
 
     # ---------------- UTILS ----------------
     def get_button_style(self, color):
         return f"""
-        QPushButton {{
+        QPushButton {
             background-color: {color};
             color: white;
             padding: 10px 20px;
             border-radius: 6px;
             font-weight: bold;
-        }}
-        QPushButton:hover {{
+        }
+        QPushButton:hover {
             background-color: {color}dd;
-        }}
+        }
         """
+
+
+if __name__ == '__main__':
+    import sys
+    app = QApplication(sys.argv)
+    main_win = AdvancedTimetableApp()
+    main_win.show()
+    sys.exit(app.exec_())

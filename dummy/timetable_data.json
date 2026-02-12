@@ -21,16 +21,27 @@
             "code": "CS101",
             "name": "Intro to Computer Science",
             "credits": 3,
-            "weekly_lecture_slots": 3,
-            "is_lab": false
+            "theory_lectures_per_week": 3,
+            "lab_hours_per_week": 0,
+            "lab_batch_size": 0
         },
         {
             "id": 2,
             "code": "CS201",
             "name": "Data Structures",
             "credits": 4,
-            "weekly_lecture_slots": 4,
-            "is_lab": true
+            "theory_lectures_per_week": 3,
+            "lab_hours_per_week": 2,
+            "lab_batch_size": 25
+        },
+        {
+            "id": 3,
+            "code": "CS202",
+            "name": "Database Systems Lab",
+            "credits": 1,
+            "theory_lectures_per_week": 0,
+            "lab_hours_per_week": 2,
+            "lab_batch_size": 25
         }
     ],
     "sections": [
@@ -53,7 +64,7 @@
             "name": "R101",
             "capacity": 60,
             "type": "CLASSROOM",
-            "lab_type": NaN
+            "lab_type": null
         },
         {
             "id": 2,
@@ -67,7 +78,7 @@
             "name": "R102",
             "capacity": 60,
             "type": "CLASSROOM",
-            "lab_type": NaN
+            "lab_type": null
         },
         {
             "id": 4,
@@ -76,5 +87,14 @@
             "type": "LAB",
             "lab_type": "ECE"
         }
-    ]
+    ],
+    "subject_teacher_assignments": {
+        "1": [1],
+        "2": [2],
+        "3": [1, 2]
+    },
+    "section_subject_assignments": {
+        "1": [1, 2, 3],
+        "2": [1, 2]
+    }
 }

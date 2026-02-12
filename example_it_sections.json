@@ -1,0 +1,340 @@
+{
+  "metadata": {
+    "description": "Example: Different sections with different subjects and teachers",
+    "scenario": "IT department with 3 sections having different subject combinations",
+    "created": "2024-01-01"
+  },
+  "subjects": [
+    {
+      "code": "ML",
+      "name": "Machine Learning",
+      "has_practical": true,
+      "practical_code": "ML(P)",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 2
+    },
+    {
+      "code": "DSA",
+      "name": "Data Structures & Algorithms",
+      "has_practical": true,
+      "practical_code": "DSA(P)",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 2
+    },
+    {
+      "code": "WEB",
+      "name": "Web Development",
+      "has_practical": true,
+      "practical_code": "WEB(P)",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 2
+    },
+    {
+      "code": "CLOUD",
+      "name": "Cloud Computing",
+      "has_practical": true,
+      "practical_code": "CLOUD(P)",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 1
+    },
+    {
+      "code": "DBMS",
+      "name": "Database Management",
+      "has_practical": true,
+      "practical_code": "DBMS(P)",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 2
+    },
+    {
+      "code": "NETWORK",
+      "name": "Computer Networks",
+      "has_practical": true,
+      "practical_code": "NETWORK(P)",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 1
+    }
+  ],
+  "classes": [
+    {
+      "code": "IT-A",
+      "name": "Information Technology - Section A",
+      "size": 40,
+      "subjects": ["ML", "DSA", "WEB", "CLOUD", "DBMS"],
+      "program": "Information Technology",
+      "year": 3,
+      "notes": "Focus on ML and Web Dev"
+    },
+    {
+      "code": "IT-B",
+      "name": "Information Technology - Section B",
+      "size": 38,
+      "subjects": ["ML", "DSA", "WEB", "DBMS", "NETWORK"],
+      "program": "Information Technology",
+      "year": 3,
+      "notes": "Focus on ML and Networks"
+    },
+    {
+      "code": "IT-C",
+      "name": "Information Technology - Section C",
+      "size": 42,
+      "subjects": ["ML", "DSA", "CLOUD", "DBMS", "NETWORK"],
+      "program": "Information Technology",
+      "year": 3,
+      "notes": "Focus on ML and Cloud"
+    },
+    {
+      "code": "IT-D",
+      "name": "Information Technology - Section D",
+      "size": 35,
+      "subjects": ["DSA", "WEB", "CLOUD", "DBMS", "NETWORK"],
+      "program": "Information Technology",
+      "year": 3,
+      "notes": "No ML - Focus on Core subjects"
+    }
+  ],
+  "teachers": [
+    {
+      "code": "T-ML-1",
+      "name": "Dr. Sarah Chen",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 24,
+      "can_teach": ["ML"],
+      "preferred_slots": [],
+      "unavailable_slots": [],
+      "department": "Computer Science",
+      "expertise": "Machine Learning, AI"
+    },
+    {
+      "code": "T-ML-2",
+      "name": "Prof. Rajesh Kumar",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 24,
+      "can_teach": ["ML"],
+      "preferred_slots": [],
+      "unavailable_slots": [],
+      "department": "Computer Science",
+      "expertise": "Machine Learning, Data Science"
+    },
+    {
+      "code": "T-DSA",
+      "name": "Dr. Michael Brown",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": ["DSA"],
+      "preferred_slots": [],
+      "unavailable_slots": [],
+      "department": "Computer Science",
+      "expertise": "Algorithms, Data Structures"
+    },
+    {
+      "code": "T-WEB",
+      "name": "Prof. Lisa Wang",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 24,
+      "can_teach": ["WEB"],
+      "preferred_slots": [],
+      "unavailable_slots": [],
+      "department": "Computer Science",
+      "expertise": "Web Development, Frontend"
+    },
+    {
+      "code": "T-CLOUD",
+      "name": "Dr. James Wilson",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 24,
+      "can_teach": ["CLOUD"],
+      "preferred_slots": [],
+      "unavailable_slots": [],
+      "department": "Computer Science",
+      "expertise": "Cloud Computing, DevOps"
+    },
+    {
+      "code": "T-DB-1",
+      "name": "Prof. Maria Garcia",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 24,
+      "can_teach": ["DBMS"],
+      "preferred_slots": [],
+      "unavailable_slots": [],
+      "department": "Computer Science",
+      "expertise": "Databases, SQL"
+    },
+    {
+      "code": "T-DB-2",
+      "name": "Dr. Ahmed Hassan",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 24,
+      "can_teach": ["DBMS"],
+      "preferred_slots": [],
+      "unavailable_slots": [],
+      "department": "Computer Science",
+      "expertise": "Databases, Big Data"
+    },
+    {
+      "code": "T-NET",
+      "name": "Prof. David Lee",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 24,
+      "can_teach": ["NETWORK"],
+      "preferred_slots": [],
+      "unavailable_slots": [],
+      "department": "Computer Science",
+      "expertise": "Networks, Security"
+    },
+    {
+      "code": "T-MULTI",
+      "name": "Dr. Emily Zhang",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": ["WEB", "CLOUD"],
+      "preferred_slots": [],
+      "unavailable_slots": [],
+      "department": "Computer Science",
+      "expertise": "Full Stack, Cloud, Web"
+    }
+  ],
+  "rooms": [
+    {
+      "code": "R-101",
+      "name": "Classroom 101",
+      "room_type": "lecture",
+      "capacity": 50,
+      "location": "Main Building",
+      "floor": 1
+    },
+    {
+      "code": "R-102",
+      "name": "Classroom 102",
+      "room_type": "lecture",
+      "capacity": 50,
+      "location": "Main Building",
+      "floor": 1
+    },
+    {
+      "code": "R-201",
+      "name": "Classroom 201",
+      "room_type": "lecture",
+      "capacity": 45,
+      "location": "Main Building",
+      "floor": 2
+    },
+    {
+      "code": "R-202",
+      "name": "Classroom 202",
+      "room_type": "lecture",
+      "capacity": 45,
+      "location": "Main Building",
+      "floor": 2
+    },
+    {
+      "code": "LAB-A",
+      "name": "Computer Lab A",
+      "room_type": "lab",
+      "capacity": 25,
+      "location": "Lab Block",
+      "floor": 1,
+      "equipment": "High-performance workstations"
+    },
+    {
+      "code": "LAB-B",
+      "name": "Computer Lab B",
+      "room_type": "lab",
+      "capacity": 25,
+      "location": "Lab Block",
+      "floor": 1,
+      "equipment": "High-performance workstations"
+    },
+    {
+      "code": "LAB-C",
+      "name": "Computer Lab C",
+      "room_type": "lab",
+      "capacity": 20,
+      "location": "Lab Block",
+      "floor": 2,
+      "equipment": "ML/AI specialized hardware"
+    },
+    {
+      "code": "LAB-NET",
+      "name": "Networking Lab",
+      "room_type": "lab",
+      "capacity": 20,
+      "location": "Lab Block",
+      "floor": 2,
+      "equipment": "Cisco networking equipment"
+    }
+  ],
+  "lab_assignments": {
+    "ML": "LAB-C",
+    "DSA": "LAB-A",
+    "WEB": "LAB-B",
+    "CLOUD": "LAB-B",
+    "DBMS": "LAB-A",
+    "NETWORK": "LAB-NET"
+  },
+  "time_slots": {
+    "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "slots_per_day": 6,
+    "start_time": "09:00",
+    "duration_minutes": 60,
+    "total_slots": 30,
+    "slots": [
+      {"index": 0, "day": 0, "slot": 0, "day_name": "Monday", "time": "09:00"},
+      {"index": 1, "day": 0, "slot": 1, "day_name": "Monday", "time": "10:00"},
+      {"index": 2, "day": 0, "slot": 2, "day_name": "Monday", "time": "11:00"},
+      {"index": 3, "day": 0, "slot": 3, "day_name": "Monday", "time": "12:00"},
+      {"index": 4, "day": 0, "slot": 4, "day_name": "Monday", "time": "13:00"},
+      {"index": 5, "day": 0, "slot": 5, "day_name": "Monday", "time": "14:00"},
+      {"index": 6, "day": 1, "slot": 0, "day_name": "Tuesday", "time": "09:00"},
+      {"index": 7, "day": 1, "slot": 1, "day_name": "Tuesday", "time": "10:00"},
+      {"index": 8, "day": 1, "slot": 2, "day_name": "Tuesday", "time": "11:00"},
+      {"index": 9, "day": 1, "slot": 3, "day_name": "Tuesday", "time": "12:00"},
+      {"index": 10, "day": 1, "slot": 4, "day_name": "Tuesday", "time": "13:00"},
+      {"index": 11, "day": 1, "slot": 5, "day_name": "Tuesday", "time": "14:00"},
+      {"index": 12, "day": 2, "slot": 0, "day_name": "Wednesday", "time": "09:00"},
+      {"index": 13, "day": 2, "slot": 1, "day_name": "Wednesday", "time": "10:00"},
+      {"index": 14, "day": 2, "slot": 2, "day_name": "Wednesday", "time": "11:00"},
+      {"index": 15, "day": 2, "slot": 3, "day_name": "Wednesday", "time": "12:00"},
+      {"index": 16, "day": 2, "slot": 4, "day_name": "Wednesday", "time": "13:00"},
+      {"index": 17, "day": 2, "slot": 5, "day_name": "Wednesday", "time": "14:00"},
+      {"index": 18, "day": 3, "slot": 0, "day_name": "Thursday", "time": "09:00"},
+      {"index": 19, "day": 3, "slot": 1, "day_name": "Thursday", "time": "10:00"},
+      {"index": 20, "day": 3, "slot": 2, "day_name": "Thursday", "time": "11:00"},
+      {"index": 21, "day": 3, "slot": 3, "day_name": "Thursday", "time": "12:00"},
+      {"index": 22, "day": 3, "slot": 4, "day_name": "Thursday", "time": "13:00"},
+      {"index": 23, "day": 3, "slot": 5, "day_name": "Thursday", "time": "14:00"},
+      {"index": 24, "day": 4, "slot": 0, "day_name": "Friday", "time": "09:00"},
+      {"index": 25, "day": 4, "slot": 1, "day_name": "Friday", "time": "10:00"},
+      {"index": 26, "day": 4, "slot": 2, "day_name": "Friday", "time": "11:00"},
+      {"index": 27, "day": 4, "slot": 3, "day_name": "Friday", "time": "12:00"},
+      {"index": 28, "day": 4, "slot": 4, "day_name": "Friday", "time": "13:00"},
+      {"index": 29, "day": 4, "slot": 5, "day_name": "Friday", "time": "14:00"}
+    ]
+  },
+  "constraints": {
+    "teacher_consistency": {
+      "description": "Within a section, each subject has exactly ONE teacher",
+      "example": "IT-A ML always taught by Dr. Sarah Chen (not mixed with Prof. Rajesh)",
+      "note": "Different sections can have different teachers for same subject"
+    },
+    "multi_subject_teachers": {
+      "description": "Some teachers can teach multiple subjects",
+      "example": "Dr. Emily Zhang can teach both WEB and CLOUD",
+      "benefit": "Flexible scheduling, better resource utilization"
+    },
+    "section_differences": {
+      "description": "Different sections can have different subject combinations",
+      "IT-A": ["ML", "DSA", "WEB", "CLOUD", "DBMS"],
+      "IT-B": ["ML", "DSA", "WEB", "DBMS", "NETWORK"],
+      "IT-C": ["ML", "DSA", "CLOUD", "DBMS", "NETWORK"],
+      "IT-D": ["DSA", "WEB", "CLOUD", "DBMS", "NETWORK"]
+    }
+  },
+  "expected_behavior": {
+    "IT-A_ML": "Will be taught by either Dr. Sarah Chen OR Prof. Rajesh Kumar (not both)",
+    "IT-B_ML": "Will be taught by either Dr. Sarah Chen OR Prof. Rajesh Kumar (not both)",
+    "IT-C_ML": "Will be taught by either Dr. Sarah Chen OR Prof. Rajesh Kumar (not both)",
+    "IT-A_WEB": "Will be taught by either Prof. Lisa Wang OR Dr. Emily Zhang",
+    "IT-A_CLOUD": "Will be taught by either Dr. James Wilson OR Dr. Emily Zhang",
+    "IT-D_DSA": "Will always be Dr. Michael Brown (only eligible teacher)"
+  }
+}

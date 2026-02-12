@@ -25,8 +25,9 @@ class Subject:
     code: str
     name: str
     credits: int
-    weekly_lecture_slots: int
-    is_lab: bool = False
+    theory_lectures_per_week: int = 0
+    lab_hours_per_week: int = 0
+    lab_batch_size: int = 0  # Max students per lab batch
 
 @dataclass
 class Section:
