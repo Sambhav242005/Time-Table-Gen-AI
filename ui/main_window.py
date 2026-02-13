@@ -1,5 +1,6 @@
 import random
 import json
+import math
 import pandas as pd
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QLabel, QVBoxLayout, QHBoxLayout, QWidget,
@@ -184,7 +185,7 @@ class AdvancedTimetableApp(QMainWindow):
 
         self.semesters_spin = QSpinBox()
         self.semesters_spin.setRange(1, 8)
-        self.semesters_spin.setValue(4)
+        self.semesters_spin.setValue(5)
         self.sections_per_sem_spin = QSpinBox()
         self.sections_per_sem_spin.setRange(1, 10)
         self.sections_per_sem_spin.setValue(2)
@@ -293,38 +294,190 @@ class AdvancedTimetableApp(QMainWindow):
 
     # ---------------- DATA UPDATES ----------------
     def setup_sample_data(self):
-        """Sample data setup."""
+        """Sample data setup using spin-box values."""
+        num_semesters = self.semesters_spin.value()
+        sections_per_sem = self.sections_per_sem_spin.value()
+
+        # 15 teachers with varied load capacities
         teachers = [
-            Teacher(1, "Dr. John Smith", "JS", 6, 20),
-            Teacher(2, "Prof. Sarah Wilson", "SW", 5, 18)
+            Teacher(1, "Dr. John Smith", "JS", 6, 24),
+            Teacher(2, "Prof. Sarah Wilson", "SW", 6, 24),
+            Teacher(3, "Dr. Alan Turing", "AT", 6, 24),
+            Teacher(4, "Prof. Grace Hopper", "GH", 6, 24),
+            Teacher(5, "Dr. Ada Lovelace", "AL", 6, 24),
+            Teacher(6, "Prof. Linus Torvalds", "LT", 6, 24),
+            Teacher(7, "Dr. Dennis Ritchie", "DR", 6, 24),
+            Teacher(8, "Prof. Barbara Liskov", "BL", 6, 24),
+            Teacher(9, "Dr. Tim Berners-Lee", "TB", 6, 24),
+            Teacher(10, "Prof. Donald Knuth", "DK", 6, 24),
+            Teacher(11, "Dr. Vint Cerf", "VC", 6, 24),
+            Teacher(12, "Prof. Shafi Goldwasser", "SG", 6, 24),
+            Teacher(13, "Dr. Raj Patel", "RP", 6, 24),
+            Teacher(14, "Prof. Emily Chen", "EC", 6, 24),
+            Teacher(15, "Dr. James Brown", "JB", 6, 24),
         ]
-        
+
+        # 20 theory subjects + 10 lab subjects = 30 total
         subjects = [
-            Subject(1, "MATH101", "Mathematics I", 4, theory_lectures_per_week=4, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(2, "PHY101", "Physics I", 3, theory_lectures_per_week=2, lab_hours_per_week=2, lab_batch_size=20),
-            Subject(3, "PHY101(p)", "Physics I (Lab)", 3, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=20),
-            Subject(4, "CS101", "Computer Science I", 4, theory_lectures_per_week=3, lab_hours_per_week=2, lab_batch_size=25),
-            Subject(5, "CS101(p)", "Computer Science I (Lab)", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=25),
+            Subject(1, "MATH101", "Mathematics I", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(2, "MATH102", "Mathematics II", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(3, "PHY101", "Physics I", 3, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(4, "PHY101P", "Physics I Lab", 3, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
+            Subject(5, "PHY102", "Physics II", 3, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(6, "PHY102P", "Physics II Lab", 3, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
+            Subject(7, "CS101", "Programming in C", 4, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(8, "CS101P", "Programming in C Lab", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
+            Subject(9, "CS201", "Data Structures", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(10, "CS201P", "Data Structures Lab", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
+            Subject(11, "CS301", "Database Systems", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(12, "CS301P", "Database Systems Lab", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
+            Subject(13, "CS401", "Operating Systems", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(14, "CS401P", "Operating Systems Lab", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
+            Subject(15, "EC101", "Electronics I", 3, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(16, "EC101P", "Electronics I Lab", 3, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
+            Subject(17, "ENG101", "English Communication", 3, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(18, "ME101", "Engineering Drawing", 3, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(19, "MATH201", "Discrete Mathematics", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(20, "CS501", "Computer Networks", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(21, "CS501P", "Computer Networks Lab", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
+            Subject(22, "CS601", "AI & Machine Learning", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(23, "CS601P", "AI & ML Lab", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
+            Subject(24, "MATH301", "Probability & Stats", 3, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(25, "CS701", "Software Engineering", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(26, "CS801", "Compiler Design", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(27, "CS802", "Cloud Computing", 4, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(28, "CHEM101", "Chemistry I", 3, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(29, "CHEM101P", "Chemistry I Lab", 3, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
+            Subject(30, "CS901", "Cyber Security", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
         ]
-        
-        sections = [
-            Section(1, "CSE-1A", 1, 60)
-        ]
-        
+
+        # Generate sections across semesters
+        sections = []
+        section_id = 1
+        for sem in range(1, num_semesters + 1):
+            for sec_idx in range(sections_per_sem):
+                sec_letter = chr(ord('A') + sec_idx)
+                sections.append(Section(section_id, f"CSE-{sem}{sec_letter}", sem, 60))
+                section_id += 1
+
+        # 8 classrooms + 10 labs = 18 rooms
         rooms = [
             Room(1, "Room 101", 70, RoomType.CLASSROOM),
-            Room(2, "Physics Lab", 30, RoomType.LAB, "Physics"),
-            Room(3, "Computer Lab 1", 30, RoomType.LAB, "Computer Science"),
+            Room(2, "Room 102", 70, RoomType.CLASSROOM),
+            Room(3, "Room 103", 70, RoomType.CLASSROOM),
+            Room(4, "Room 104", 70, RoomType.CLASSROOM),
+            Room(5, "Room 201", 70, RoomType.CLASSROOM),
+            Room(6, "Room 202", 70, RoomType.CLASSROOM),
+            Room(7, "Room 203", 70, RoomType.CLASSROOM),
+            Room(8, "Room 204", 70, RoomType.CLASSROOM),
+            Room(9, "Physics Lab 1", 35, RoomType.LAB, "Physics"),
+            Room(10, "Physics Lab 2", 35, RoomType.LAB, "Physics"),
+            Room(11, "Computer Lab 1", 35, RoomType.LAB, "Computer Science"),
+            Room(12, "Computer Lab 2", 35, RoomType.LAB, "Computer Science"),
+            Room(13, "Computer Lab 3", 35, RoomType.LAB, "Computer Science"),
+            Room(14, "Electronics Lab 1", 35, RoomType.LAB, "Electronics"),
+            Room(15, "Electronics Lab 2", 35, RoomType.LAB, "Electronics"),
+            Room(16, "Chemistry Lab 1", 35, RoomType.LAB, "Chemistry"),
+            Room(17, "AI Lab", 35, RoomType.LAB, "AI"),
+            Room(18, "Networks Lab", 35, RoomType.LAB, "Networks"),
         ]
-        
+
+        # Assign semester-appropriate subjects (not all subjects to all sections)
+        # Each semester gets a different subset of ~6 subjects
+        semester_subjects = {
+            1: [1, 3, 4, 7, 8, 15, 16, 28, 29],        # Sem 1: Math I, Phy I + lab, C + lab, EC + lab, Chem + lab
+            2: [2, 5, 6, 9, 10, 17, 18],                # Sem 2: Math II, Phy II + lab, DS + lab, English, ED
+            3: [11, 12, 13, 14, 19, 20, 21],            # Sem 3: DBMS + lab, OS + lab, Discrete Math, CN + lab
+            4: [22, 23, 24, 25, 26],                     # Sem 4: AI + lab, Prob & Stats, SE, Compiler
+            5: [27, 30, 20, 21, 25, 26],                 # Sem 5: Cloud, Cyber Sec, CN + lab, SE, Compiler
+        }
+
         self.teacher_page.set_data(teachers)
         self.subject_page.set_data(subjects)
         self.section_page.set_data(sections)
         self.room_page.set_data(rooms)
 
+        # Store semester-subject mapping for generation
+        self._semester_subjects = semester_subjects
+
+        # Map lab subjects to their required lab room type
+        self._subject_lab_types = {
+            "4": "Physics",       # PHY101P → Physics Lab
+            "6": "Physics",       # PHY102P → Physics Lab
+            "8": "Computer Science",   # CS101P → Computer Lab
+            "10": "Computer Science",  # CS201P → Computer Lab
+            "12": "Computer Science",  # CS301P → Computer Lab
+            "14": "Computer Science",  # CS401P → Computer Lab
+            "16": "Electronics",  # EC101P → Electronics Lab
+            "21": "Networks",     # CS501P → Networks Lab
+            "23": "AI",           # CS601P → AI Lab
+            "29": "Chemistry",    # CHEM101P → Chemistry Lab
+        }
+
+        # ── Teacher Specializations ──
+        # Maps subject_id → list of eligible teacher_ids
+        # Specialists ONLY teach their domain subjects.
+        # A few flexible teachers handle general / lighter subjects.
+        self._teacher_specializations = {
+            # ── Mathematics (Dr. John Smith, Prof. Sarah Wilson) ──
+            1:  [1, 2],   # Mathematics I
+            2:  [1, 2],   # Mathematics II
+            19: [1, 2],   # Discrete Mathematics
+            24: [1, 2],   # Probability & Stats
+
+            # ── Physics (Prof. Grace Hopper, Dr. James Brown) ──
+            3:  [4, 15],  # Physics I
+            4:  [4, 15],  # Physics I Lab
+            5:  [4, 15],  # Physics II
+            6:  [4, 15],  # Physics II Lab
+
+            # ── Programming / Compilers (Dr. Dennis Ritchie, Prof. Barbara Liskov) ──
+            7:  [7, 8],   # Programming in C
+            8:  [7, 8],   # Programming in C Lab
+            26: [7, 8],   # Compiler Design
+
+            # ── Data Structures / Algorithms (Dr. Alan Turing, Prof. Donald Knuth) ──
+            9:  [3, 10],  # Data Structures
+            10: [3, 10],  # Data Structures Lab
+
+            # ── OS & DB (Dr. Ada Lovelace, Prof. Linus Torvalds) ──
+            11: [5, 6],   # Database Systems
+            12: [5, 6],   # Database Systems Lab
+            13: [5, 6],   # Operating Systems
+            14: [5, 6],   # Operating Systems Lab
+
+            # ── Electronics (Dr. Alan Turing, Dr. James Brown) ──
+            15: [3, 15],  # Electronics I
+            16: [3, 15],  # Electronics I Lab
+
+            # ── Networks / Cloud (Dr. Tim Berners-Lee, Dr. Vint Cerf) ──
+            20: [9, 11],  # Computer Networks
+            21: [9, 11],  # Computer Networks Lab
+            27: [9, 11],  # Cloud Computing
+
+            # ── AI & ML / Cyber Security (Prof. Shafi Goldwasser, Prof. Donald Knuth) ──
+            22: [12, 10], # AI & Machine Learning
+            23: [12, 10], # AI & ML Lab
+            30: [12, 11], # Cyber Security
+
+            # ── General subjects (Dr. Raj Patel, Prof. Emily Chen) ──
+            17: [13, 14], # English Communication
+            18: [13, 14], # Engineering Drawing
+            25: [13, 14], # Software Engineering
+            28: [13, 14], # Chemistry I
+            29: [13, 14], # Chemistry I Lab
+        }
+
     def initialize_sample_data(self):
         self.setup_sample_data()
-        QMessageBox.information(self, "Initialized", "Sample data created!")
+        sections = self.section_page.get_data()
+        subjects = self.subject_page.get_data()
+        rooms = self.room_page.get_data()
+        teachers = self.teacher_page.get_data()
+        QMessageBox.information(self, "Initialized",
+            f"Sample data created!\n"
+            f"{len(sections)} sections, {len(subjects)} subjects,\n"
+            f"{len(teachers)} teachers, {len(rooms)} rooms")
 
     # ---------------- GENERATION THREAD ----------------
     def start_generation(self):
@@ -337,36 +490,135 @@ class AdvancedTimetableApp(QMainWindow):
             QMessageBox.warning(self, "Missing Data", "Please setup all data before generation.")
             return
 
+        # Serialize dataclass objects to dicts for the generator thread
+        teachers_dicts = [
+            {"id": t.id, "name": t.name, "code": t.code,
+             "max_daily_load": t.max_daily_load, "max_weekly_load": t.max_weekly_load}
+            for t in teachers
+        ]
+        subjects_dicts = [
+            {"id": s.id, "code": s.code, "name": s.name, "credits": s.credits,
+             "theory_lectures_per_week": s.theory_lectures_per_week,
+             "lab_hours_per_week": s.lab_hours_per_week,
+             "lab_batch_size": s.lab_batch_size}
+            for s in subjects
+        ]
+        sections_dicts = [
+            {"id": s.id, "name": s.name, "semester": s.semester, "strength": s.strength}
+            for s in sections
+        ]
+        rooms_dicts = [
+            {"id": r.id, "name": r.name, "capacity": r.capacity,
+             "type": r.type if isinstance(r.type, str) else r.type.value,
+             "lab_type": r.lab_type}
+            for r in rooms
+        ]
+
+        # ── Specialization-aware teacher assignment ──
+        specializations = getattr(self, '_teacher_specializations', {})
+        subject_teacher_assignments = {}
+        teacher_ids = [t.id for t in teachers]
+        teacher_load = {t.id: 0 for t in teachers}
+
+        # Use semester-subject mapping if available
+        semester_subjects = getattr(self, '_semester_subjects', None)
+
+        # Count how many sections will use each subject
+        subject_usage_count = {}
+        if semester_subjects:
+            for sec in sections:
+                sem_subjs = semester_subjects.get(sec.semester, [])
+                for sid in sem_subjs:
+                    subject_usage_count[sid] = subject_usage_count.get(sid, 0) + 1
+        else:
+            for subj in subjects:
+                subject_usage_count[subj.id] = len(sections)
+
+        for subj in subjects:
+            usage = subject_usage_count.get(subj.id, 0)
+            if usage == 0:
+                continue
+            slots_per_section = subj.theory_lectures_per_week
+            if subj.lab_hours_per_week > 0 and subj.lab_batch_size > 0:
+                batches = max(1, math.ceil(60 / subj.lab_batch_size))
+                lab_sessions = max(1, subj.lab_hours_per_week // 2)
+                slots_per_section += batches * lab_sessions * 2
+            total_load = slots_per_section * usage
+
+            # Pick from eligible specialists (or fall back to all teachers)
+            eligible = specializations.get(subj.id, teacher_ids)
+            best_tid = min(eligible, key=lambda tid: teacher_load[tid])
+            subject_teacher_assignments[str(subj.id)] = [best_tid]
+            teacher_load[best_tid] += total_load
+
+        # Section-subject assignments based on semester mapping
+        section_subject_assignments = {}
+        if semester_subjects:
+            for sec in sections:
+                sem_subjs = semester_subjects.get(sec.semester, [])
+                section_subject_assignments[str(sec.id)] = sem_subjs
+        else:
+            all_subject_ids = [s.id for s in subjects]
+            for sec in sections:
+                section_subject_assignments[str(sec.id)] = all_subject_ids
+
+        # Build subject → lab_type mapping
+        subject_lab_types = getattr(self, '_subject_lab_types', {})
+
         config = {
-            "teachers": teachers,
-            "subjects": subjects,
-            "sections": [s.name for s in sections],
-            "rooms": rooms
+            "teachers": teachers_dicts,
+            "subjects": subjects_dicts,
+            "sections": sections_dicts,
+            "rooms": rooms_dicts,
+            "subject_teacher_assignments": subject_teacher_assignments,
+            "section_subject_assignments": section_subject_assignments,
+            "subject_lab_types": subject_lab_types,
         }
+
         self.generation_thread = TimetableGeneratorThread(config)
         self.generation_thread.generation_completed.connect(self.on_generation_completed)
+        self.generation_thread.generation_failed.connect(self.on_generation_failed)
+        if hasattr(self, 'generate_page') and hasattr(self.generate_page, 'progress_bar'):
+            self.generation_thread.progress_updated.connect(self.generate_page.update_progress)
+            self.generation_thread.status_updated.connect(self.generate_page.update_status)
+        self.generate_page.generate_btn.setEnabled(False)
+        self.generate_page.generate_btn.setText("Generating...")
         self.generation_thread.start()
 
     def on_generation_completed(self, timetables):
         self.generated_timetables = timetables
-        TimetableJSONParser.save_to_json("output/generated_timetables.json", timetables)
-        QMessageBox.information(self, "Success", "Timetables generated and saved to JSON!")
+        try:
+            TimetableJSONParser.save_to_json("output/generated_timetables.json", timetables)
+        except Exception:
+            pass
+        self.generate_page.generate_btn.setEnabled(True)
+        self.generate_page.generate_btn.setText("GENERATE")
+
+        # Count items for summary
+        num_sec = len(timetables.get('sections', {})) if isinstance(timetables, dict) and 'sections' in timetables else len(timetables)
+        QMessageBox.information(self, "Success",
+            f"Timetables generated successfully!\n{num_sec} section timetables created.")
         self.view_page.update_view(self.generated_timetables)
         self.navigate_to_page(7)
+
+    def on_generation_failed(self, error_message):
+        self.generate_page.generate_btn.setEnabled(True)
+        self.generate_page.generate_btn.setText("GENERATE")
+        QMessageBox.critical(self, "Generation Failed", f"Could not generate timetable:\n{error_message}")
 
     # ---------------- UTILS ----------------
     def get_button_style(self, color):
         return f"""
-        QPushButton {
+        QPushButton {{
             background-color: {color};
             color: white;
             padding: 10px 20px;
             border-radius: 6px;
             font-weight: bold;
-        }
-        QPushButton:hover {
+        }}
+        QPushButton:hover {{
             background-color: {color}dd;
-        }
+        }}
         """
 
 
