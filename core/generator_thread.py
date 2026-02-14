@@ -65,6 +65,8 @@ class TimetableGeneratorThread(QThread):
         self.subject_teacher_assignments = self.config.get("subject_teacher_assignments", {})
         self.section_subject_assignments = self.config.get("section_subject_assignments", {})
         self.subject_lab_types = self.config.get("subject_lab_types", {})
+        # section_id (str) -> room_id (int): pre-assigned classroom for each section
+        self.section_room_assignments = self.config.get("section_room_assignments", {})
 
     def _prepare_events(self):
         events = []
@@ -142,8 +144,13 @@ class TimetableGeneratorThread(QThread):
                         continue
                     valid_rooms.append(rid)
             else:
-                valid_rooms = [rid for rid, r in lecture_rooms.items()
-                               if r.capacity >= section.strength]
+                # Check for pre-assigned classroom
+                pre_assigned = self.section_room_assignments.get(str(ev["section_id"]))
+                if pre_assigned and pre_assigned in lecture_rooms:
+                    valid_rooms = [pre_assigned]
+                else:
+                    valid_rooms = [rid for rid, r in lecture_rooms.items()
+                                   if r.capacity >= section.strength]
 
             if not valid_rooms:
                 self.status_updated.emit(f"No room for {subject.name} ({ev['type']})")
@@ -264,23 +271,69 @@ class TimetableGeneratorThread(QThread):
 
         self.progress_updated.emit(60)
 
-        # CONSTRAINT: Room no-conflict (only for fixed room assignments for simplicity)
-        room_events = {}
+        # CONSTRAINT: Room no-conflict (handles BOTH fixed and variable room assignments)
+        # For variable room assignments, create boolean indicators: is_in_room[i, rid]
+        is_in_room = {}  # (event_idx, room_id) -> BoolVar
+        for i, ev in enumerate(events):
+            r = room_assign[i]
+            if not isinstance(r, int):
+                # Variable room assignment — determine which rooms are possible
+                section = self.sections[ev["section_id"]]
+                subject = self.subjects[ev["subject_id"]]
+                if ev["type"] == "lab":
+                    required_lab_type = self.subject_lab_types.get(str(ev["subject_id"]), None)
+                    valid_rooms = [rid for rid, rm in lab_rooms.items()
+                                  if rm.capacity >= subject.lab_batch_size
+                                  and (not required_lab_type or not rm.lab_type
+                                       or rm.lab_type == required_lab_type)]
+                else:
+                    valid_rooms = [rid for rid, rm in lecture_rooms.items()
+                                  if rm.capacity >= section.strength]
+
+                for rid in valid_rooms:
+                    bv = model.NewBoolVar(f"in_room_{i}_{rid}")
+                    is_in_room[(i, rid)] = bv
+                    # Link: bv == 1  iff  room_assign[i] == rid
+                    model.Add(r == rid).OnlyEnforceIf(bv)
+                    model.Add(r != rid).OnlyEnforceIf(bv.Not())
+
+        # Build per-room event lists (both fixed and variable)
+        all_room_ids = set(self.rooms.keys())
+        room_event_map = {rid: [] for rid in all_room_ids}  # rid -> [(event_idx, is_fixed)]
+
         for i, ev in enumerate(events):
             r = room_assign[i]
             if isinstance(r, int):
-                room_events.setdefault(r, []).append(i)
+                room_event_map[r].append((i, True))
+            else:
+                for (ei, rid), bv in is_in_room.items():
+                    if ei == i:
+                        room_event_map[rid].append((i, False))
 
-        for rid, ev_indices in room_events.items():
+        # For each room, enforce no two events occupy the same slot
+        for rid, ev_list in room_event_map.items():
+            if len(ev_list) <= 1:
+                continue
             for d in range(num_days):
                 for s in range(num_slots):
                     overlapping = []
-                    for i in ev_indices:
+                    for (i, is_fixed) in ev_list:
                         dur = events[i]["duration"]
                         for start_s in range(max(0, s - dur + 1), min(s + 1, num_slots - dur + 1)):
                             key = (i, d, start_s)
-                            if key in x:
+                            if key not in x:
+                                continue
+                            if is_fixed:
                                 overlapping.append(x[key])
+                            else:
+                                # Event occupies this room at this time only if
+                                # x[key]==1 AND is_in_room[(i, rid)]==1
+                                bv = is_in_room[(i, rid)]
+                                combo = model.NewBoolVar(f"occ_{i}_{rid}_{d}_{start_s}")
+                                # combo == x[key] AND bv
+                                model.AddBoolAnd([x[key], bv]).OnlyEnforceIf(combo)
+                                model.AddBoolOr([x[key].Not(), bv.Not()]).OnlyEnforceIf(combo.Not())
+                                overlapping.append(combo)
                     if len(overlapping) > 1:
                         model.Add(sum(overlapping) <= 1)
 
@@ -384,7 +437,7 @@ class TimetableGeneratorThread(QThread):
         self.progress_updated.emit(70)
 
         solver = cp_model.CpSolver()
-        solver.parameters.max_time_in_seconds = 30
+        solver.parameters.max_time_in_seconds = 60
         solver.parameters.num_search_workers = 4
         # Random seed for schedule variety
         solver.parameters.random_seed = random.randint(0, 10000)

@@ -397,6 +397,12 @@ class AdvancedTimetableApp(QMainWindow):
         self.section_page.set_data(sections)
         self.room_page.set_data(rooms)
 
+        # Provide subjects list to teacher page and section page for the assign-subjects UI
+        self.teacher_page.set_all_subjects(subjects)
+        self.section_page.set_all_subjects(subjects)
+        # Provide sections list to room page for assign-section UI
+        self.room_page.set_all_sections(sections)
+
         # Store semester-subject mapping for generation
         self._semester_subjects = semester_subjects
 
@@ -468,6 +474,35 @@ class AdvancedTimetableApp(QMainWindow):
             29: [13, 14], # Chemistry I Lab
         }
 
+        # ── Populate teacher page's subject map from specializations ──
+        # Convert subject_id→[teacher_ids] into teacher_id→[subject_ids]
+        teacher_subj_map = {}
+        for subj_id, tids in self._teacher_specializations.items():
+            for tid in tids:
+                teacher_subj_map.setdefault(tid, []).append(subj_id)
+        self.teacher_page.teacher_subject_map = teacher_subj_map
+        self.teacher_page.update_table()
+
+        # ── Populate section page's subject map from semester mapping ──
+        for sec in sections:
+            sem_subjs = semester_subjects.get(sec.semester, [])
+            self.section_page.section_subject_map[sec.id] = list(sem_subjs)
+        self.section_page.update_table()
+
+        # ── Section → Classroom pre-assignment ──
+        # Assign each section its own dedicated classroom (in order)
+        classroom_rooms = [r for r in rooms if r.type == RoomType.CLASSROOM]
+        self._section_room_assignments = {}
+        for idx, sec in enumerate(sections):
+            if idx < len(classroom_rooms):
+                self._section_room_assignments[str(sec.id)] = classroom_rooms[idx].id
+
+        # Populate room page's section map from section-room assignments
+        # section_id -> room_id (int) ==> room_id -> section_id (int)
+        for sec_id_str, room_id in self._section_room_assignments.items():
+             self.room_page.room_section_map[room_id] = int(sec_id_str)
+        self.room_page.update_table()
+
     def initialize_sample_data(self):
         self.setup_sample_data()
         sections = self.section_page.get_data()
@@ -515,7 +550,14 @@ class AdvancedTimetableApp(QMainWindow):
         ]
 
         # ── Specialization-aware teacher assignment ──
-        specializations = getattr(self, '_teacher_specializations', {})
+        # Build subject_id → [teacher_ids] from teacher page's UI map
+        specializations = {}
+        if hasattr(self, 'teacher_page') and self.teacher_page.teacher_subject_map:
+            for tid, subj_ids in self.teacher_page.teacher_subject_map.items():
+                for sid in subj_ids:
+                    specializations.setdefault(sid, []).append(tid)
+        else:
+            specializations = getattr(self, '_teacher_specializations', {})
         subject_teacher_assignments = {}
         teacher_ids = [t.id for t in teachers]
         teacher_load = {t.id: 0 for t in teachers}
@@ -551,19 +593,36 @@ class AdvancedTimetableApp(QMainWindow):
             subject_teacher_assignments[str(subj.id)] = [best_tid]
             teacher_load[best_tid] += total_load
 
-        # Section-subject assignments based on semester mapping
+        # Section-subject assignments from section page's UI map
         section_subject_assignments = {}
-        if semester_subjects:
+        if hasattr(self, 'section_page') and self.section_page.section_subject_map:
             for sec in sections:
-                sem_subjs = semester_subjects.get(sec.semester, [])
-                section_subject_assignments[str(sec.id)] = sem_subjs
-        else:
-            all_subject_ids = [s.id for s in subjects]
-            for sec in sections:
-                section_subject_assignments[str(sec.id)] = all_subject_ids
+                assigned = self.section_page.section_subject_map.get(sec.id, [])
+                if assigned:
+                    section_subject_assignments[str(sec.id)] = assigned
+        if not section_subject_assignments:
+            # Fallback to semester mapping or all subjects
+            semester_subjects = getattr(self, '_semester_subjects', None)
+            if semester_subjects:
+                for sec in sections:
+                    sem_subjs = semester_subjects.get(sec.semester, [])
+                    section_subject_assignments[str(sec.id)] = sem_subjs
+            else:
+                all_subject_ids = [s.id for s in subjects]
+                for sec in sections:
+                    section_subject_assignments[str(sec.id)] = all_subject_ids
 
         # Build subject → lab_type mapping
         subject_lab_types = getattr(self, '_subject_lab_types', {})
+
+        # Section → classroom pre-assignment
+        # Read from room page's UI map (room_id -> section_id) ==> (section_id -> room_id)
+        section_room_assignments = {}
+        if hasattr(self, 'room_page') and self.room_page.room_section_map:
+            for rid, sid in self.room_page.room_section_map.items():
+                section_room_assignments[str(sid)] = rid
+        else:
+             section_room_assignments = getattr(self, '_section_room_assignments', {})
 
         config = {
             "teachers": teachers_dicts,
@@ -573,6 +632,7 @@ class AdvancedTimetableApp(QMainWindow):
             "subject_teacher_assignments": subject_teacher_assignments,
             "section_subject_assignments": section_subject_assignments,
             "subject_lab_types": subject_lab_types,
+            "section_room_assignments": section_room_assignments,
         }
 
         self.generation_thread = TimetableGeneratorThread(config)
@@ -599,6 +659,7 @@ class AdvancedTimetableApp(QMainWindow):
         QMessageBox.information(self, "Success",
             f"Timetables generated successfully!\n{num_sec} section timetables created.")
         self.view_page.update_view(self.generated_timetables)
+        self.room_page.update_table()
         self.navigate_to_page(7)
 
     def on_generation_failed(self, error_message):
