@@ -4,22 +4,23 @@ This project provides a comprehensive system for generating optimized timetables
 
 It essentially comprises two distinct applications:
 
-1.  **GUI Timetable Generator**: A user-friendly desktop application built with PyQt5, allowing users to manage teachers, subjects, sections, and rooms. It uses a simpler recursive backtracking algorithm for timetable generation and includes features like multi-view timetables and PDF export.
+1. **GUI Timetable Generator**: A user-friendly desktop application built with PyQt5, allowing users to manage teachers, subjects, sections, and rooms. It uses an **event-based CP-SAT verification model** (not backtracking) for reliable timetable generation and includes features like multi-view timetables and PDF export.
 
-2.  **Advanced CLI Timetable Solver**: A powerful, standalone command-line application that leverages Google's OR-Tools CP-SAT solver for highly optimized timetable generation. This solver handles a wide array of hard and soft constraints, supports large datasets, and includes a "problem finder" to detect conflicts before solving. It is designed for more complex, real-world university timetabling problems.
+2. **Advanced CLI Timetable Solver**: A powerful, standalone command-line application that leverages Google's OR-Tools CP-SAT solver for highly optimized timetable generation. This solver handles a wide array of hard and soft constraints, supports large datasets, and includes a "problem finder" to detect conflicts before solving. It is designed for more complex, real-world university timetabling problems.
 
 **Key Technologies:**
-*   **Python**: Primary programming language.
-*   **PyQt5**: For the graphical user interface.
-*   **Google OR-Tools CP-SAT**: For advanced constraint programming and optimization in the CLI solver.
-*   **ReportLab**: For PDF generation in the GUI application.
-*   **Pandas/NumPy**: For data manipulation (inferred from `requirements.txt`).
+
+* **Python**: Primary programming language.
+* **PyQt5**: For the graphical user interface.
+* **Google OR-Tools CP-SAT**: For advanced constraint programming and optimization in the CLI solver.
+* **ReportLab**: For PDF generation in the GUI application.
+* **Pandas/NumPy**: For data manipulation (inferred from `requirements.txt`).
 
 # Building and Running
 
 ## Prerequisites
 
-*   Python 3.7 or higher
+* Python 3.7 or higher
 
 ## Installation
 
@@ -69,8 +70,8 @@ This script will load data (by default, `example_dataset.json` or a generated `l
 
 # Development Conventions
 
-*   **Language**: Python is the sole programming language used throughout the project.
-*   **Code Structure**: The project is organized into `ui/` for the GUI components and `core/` for shared logic and data models. The advanced solver components (`timetable_solver.py`, `large_timetable_generator.py`) exist independently at the root level, indicating a distinct, performance-focused module.
-*   **Data Models**: `core/data_models.py` defines `dataclasses` for managing entities within the GUI application (Teacher, Subject, Section, Room). The advanced solver (`timetable_solver.py`) uses its own internal data structures.
-*   **Documentation**: Extensive Markdown documentation (`.md` files in the root) covers mathematical models, algorithms, complexity analysis, and guides for large datasets, particularly for the advanced solver.
-*   **Error Handling**: The `large_timetable_generator.py` script serves as a pre-solver problem detection mechanism, emphasizing early identification of constraints issues.
+* **Language**: Python is the sole programming language used throughout the project.
+* **Code Structure**: The project is organized into `ui/` for the GUI components and `core/` for shared logic and data models. The advanced solver components (`timetable_solver.py`, `large_timetable_generator.py`) exist independently at the root level, indicating a distinct, performance-focused module.
+* **Data Models**: `core/data_models.py` defines `dataclasses` for managing entities within the GUI application (Teacher, Subject, Section, Room). The advanced solver (`timetable_solver.py`) uses its own internal data structures.
+* **Documentation**: Extensive Markdown documentation (`.md` files in the root) covers mathematical models, algorithms, complexity analysis, and guides for large datasets, particularly for the advanced solver.
+* **Error Handling**: The `large_timetable_generator.py` script serves as a pre-solver problem detection mechanism, emphasizing early identification of constraints issues.

@@ -2,11 +2,12 @@
 
 ## Problem Overview
 
-This document describes the mathematical formulation for an automated university timetable generator using Constraint Programming (CP-SAT).
+This document describes the mathematical formulation for the **CLI Solver** (`timetable_solver.py`), which uses a comprehensive Constraint Programming (CP-SAT) approach.
 
 ## Sets and Parameters
 
 ### Basic Sets
+
 - **S**: Set of subjects, indexed by $s$
   - Each $s \in S$ has: code, has_practical flag, practical_sessions_per_week
   - If practical: practical_code = code + "(P)"
@@ -30,6 +31,7 @@ This document describes the mathematical formulation for an automated university
   - Day(k) = day of slot k
 
 ### Derived Sets
+
 - **B_{s,c}**: Batches for subject s and class c
   - If lab capacity < size(c): split into batches
   - Each batch b ∈ B_{s,c} has size batch_size(b)
@@ -38,42 +40,51 @@ This document describes the mathematical formulation for an automated university
 ## Decision Variables
 
 ### Primary Variables
+
 ```
 x_{s,c,t,r,k} ∈ {0,1}  (Binary)
 ```
+
 - = 1 if subject s is taught to class c by teacher t in room r at slot k
 - For theory sessions: r is any lecture room
 - For practical sessions: r = lab_of(s) (fixed)
 
 ### Auxiliary Variables
+
 ```
 y_{s,c,k} ∈ {0,1}  (Binary)
 ```
+
 - = 1 if class c has subject s scheduled at slot k (regardless of teacher/room)
 
 ```
 z_{c,k} ∈ {0,1}  (Binary)
 ```
+
 - = 1 if class c is busy (has any session) at slot k
 
 ```
 w_{t,d} ∈ ℤ⁺  (Integer)
 ```
+
 - Number of hours teacher t works on day d
 
 ```
 g_{c,k} ∈ {0,1}  (Binary)
 ```
+
 - = 1 if class c has a gap at slot k (free slot between busy slots)
 
 ```
 room_changes_{t,d} ∈ ℤ⁺  (Integer)
 ```
+
 - Number of room changes for teacher t on day d
 
 ## Hard Constraints
 
 ### 1. Class Conflict Constraint
+
 A class can have at most one session per time slot:
 
 $$
@@ -81,6 +92,7 @@ $$
 $$
 
 ### 2. Teacher Conflict Constraint
+
 A teacher cannot be in two places at once:
 
 $$
@@ -88,6 +100,7 @@ $$
 $$
 
 ### 3. Room Conflict Constraint
+
 A room can host at most one session per time slot:
 
 $$
@@ -95,6 +108,7 @@ $$
 $$
 
 ### 4. Room Capacity Constraint
+
 For lectures: total students ≤ room capacity
 For labs: each batch size ≤ lab capacity
 
@@ -109,6 +123,7 @@ $$
 $$
 
 ### 5. Fixed Lab Constraint
+
 Practicals must use their designated lab:
 
 $$
@@ -116,6 +131,7 @@ x_{s,c,t,r,k} = 0 \quad \forall s \in S_{practical}, \forall c \in C, \forall t 
 $$
 
 ### 6. Teacher Eligibility
+
 Teachers can only teach subjects they are qualified for:
 
 Let A_{s,t} = 1 if teacher t can teach subject s
@@ -125,6 +141,7 @@ $$
 $$
 
 ### 6a. Single Teacher Per Subject Per Class (Consistency Constraint)
+
 Within each class-section, each subject must be taught by exactly one teacher throughout the semester. Different sections can have different teachers for the same subject.
 
 Let $\tau_{s,c,t} \in \{0,1\}$ indicate whether teacher $t$ teaches subject $s$ to class $c$:
@@ -158,6 +175,7 @@ $$
 $$
 
 ### 9. Required Practical Sessions
+
 Schedule exactly N practical sessions per week for subjects with practicals:
 
 Let N_s = number of practical sessions required for subject s
@@ -184,7 +202,7 @@ $
 Define gap variable:
 
 $$
-g_{c,k} = \begin{cases} 
+g_{c,k} = \begin{cases}
 1 & \text{if } z_{c,k-1} = 1 \land z_{c,k} = 0 \land z_{c,k+1} = 1 \\
 0 & \text{otherwise}
 \end{cases}

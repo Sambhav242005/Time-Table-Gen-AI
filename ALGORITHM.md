@@ -4,11 +4,16 @@ A comprehensive automated university timetable generation system using Constrain
 
 ## Overview
 
-This document describes a complete mathematical formulation, algorithm design, and implementation for generating conflict-free university timetables while optimizing for student convenience and teacher workload balance.
+This document describes the algorithms used in the University Timetable Generator system. The system employs two distinct CP-SAT approaches: A comprehensive mathematical formulation for the **CLI Solver** and an optimized event-based model for the **GUI Application**.
+
+## CLI Solver Algorithm
+
+The following sections describe the complete mathematical formulation used in `timetable_solver.py`.
 
 ## Features
 
 ### Hard Constraints (Must Satisfy)
+
 - **Class Conflict**: No class can have multiple sessions at the same time
 - **Teacher Conflict**: Teachers cannot be in two places simultaneously  
 - **Room Conflict**: Rooms can only host one session per slot
@@ -20,6 +25,7 @@ This document describes a complete mathematical formulation, algorithm design, a
 - **Unavailability**: Respects teacher and room unavailability windows
 
 ### Soft Objectives (Optimized)
+
 - **Minimize Student Gaps**: Reduce consecutive free slots between classes
 - **Balance Teacher Workload**: Equalize daily hours across the week
 - **Minimize Room Changes**: Keep teachers in the same room when possible
@@ -48,6 +54,7 @@ python timetable_solver.py
 ```
 
 This will:
+
 1. Load the example dataset
 2. Build the CP-SAT model with all constraints
 3. Solve the optimization problem
@@ -59,10 +66,12 @@ This will:
 The problem is formulated as a **Constraint Satisfaction and Optimization Problem**:
 
 ### Decision Variables
+
 - **x[s,c,t,r,k]** ∈ {0,1}: Assignment variable
   - = 1 if subject s is taught to class c by teacher t in room r at slot k
 
 ### Hard Constraints
+
 ```
 Class Conflict:    Σ x[s,c,t,r,k] ≤ 1  ∀c,k
 Teacher Conflict:  Σ x[s,c,t,r,k] ≤ 1  ∀t,k  
@@ -72,6 +81,7 @@ Required Sessions: Σ x[...] = required   ∀s,c
 ```
 
 ### Objective Function
+
 ```
 Minimize: w₁·(student gaps) + w₂·(workload imbalance) + 
           w₃·(room changes) - w₄·(consecutive slots)
@@ -99,6 +109,7 @@ Minimize: w₁·(student gaps) + w₂·(workload imbalance) +
 ## Complexity Analysis
 
 ### Problem Classification
+
 - **Class**: NP-hard (generalization of Graph Coloring)
 - **Variables**: O(|S|×|C|×|T|×|R|×|K|)
 - **Constraints**: O((|C|+|T|+|R|)×|K|)
@@ -132,6 +143,7 @@ The included example demonstrates:
 ### Batch Calculation Example
 
 CS-A has 30 students, CS Lab (L1) has capacity 20:
+
 - Batches needed: ⌈30/20⌉ = 2 batches
 - Each batch: 15 students
 - CS101 requires 2 practical sessions per week
@@ -147,13 +159,14 @@ CS-A has 30 students, CS Lab (L1) has capacity 20:
 
 ## References
 
-1. OR-Tools Documentation: https://developers.google.com/optimization
-2. CP-SAT Solver Guide: https://developers.google.com/optimization/cp/cp_solver
+1. OR-Tools Documentation: <https://developers.google.com/optimization>
+2. CP-SAT Solver Guide: <https://developers.google.com/optimization/cp/cp_solver>
 3. University Timetabling Survey: Academic papers on timetabling algorithms
 
 ## Implementation Notes
 
 The solver handles:
+
 - Automatic batch calculation for labs with limited capacity
 - Theory and practical session scheduling
 - Teacher availability and hour limits
@@ -161,3 +174,19 @@ The solver handles:
 - Multiple optimization objectives with weights
 
 Run `python timetable_solver.py` to generate a complete timetable from the example dataset!
+
+## GUI Application Algorithm
+
+The GUI application (`core/generator_thread.py`) uses a specialized **Event-Based CP-SAT Model** designed for interactivity and specific user-defined constraints.
+
+### distinct Features
+
+- **Event-Based Variables**: Instead of a 5-dimensional grid, it creates variables for each "Event" (e.g., "Math Class for Section A").
+  - `x[event_index, day, slot]`: Binary variable indicating when an event starts.
+- **Pre-calculation**:
+  - Theory classes are treated as single-slot events.
+  - Lab sessions are pre-calculated into batches based on room capacity.
+- **Constraints**:
+  - **Conflict Detection**: Explicitly prevents events for the same section or teacher from overlapping.
+  - **Room Assignment**: Dynamically assigns rooms based on type and capacity, or uses pre-assigned rooms.
+  - **Soft Constraints**: Minimizes gaps and balances workload using penalty terms.

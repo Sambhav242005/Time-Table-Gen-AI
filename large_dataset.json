@@ -2,97 +2,67 @@
   "subjects": [
     {
       "code": "CS101",
-      "name": "Intro to Programming",
+      "name": "CS Theory 1",
       "has_theory": true,
-      "has_practical": true,
-      "subject_type": "mixed",
+      "has_practical": false,
+      "subject_type": "theory-only",
       "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-CS-1"
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
     },
     {
       "code": "CS102",
-      "name": "Data Structures",
+      "name": "CS Theory 2",
       "has_theory": true,
-      "has_practical": true,
-      "subject_type": "mixed",
+      "has_practical": false,
+      "subject_type": "theory-only",
       "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-CS-1"
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
     },
     {
-      "code": "CS301",
-      "name": "Operating Systems",
+      "code": "CS103",
+      "name": "CS Theory 3",
       "has_theory": true,
-      "has_practical": true,
-      "subject_type": "mixed",
+      "has_practical": false,
+      "subject_type": "theory-only",
       "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-OS"
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
     },
     {
-      "code": "CS302",
-      "name": "Computer Networks",
+      "code": "CS104",
+      "name": "CS Theory 4",
       "has_theory": true,
-      "has_practical": true,
-      "subject_type": "mixed",
+      "has_practical": false,
+      "subject_type": "theory-only",
       "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-NET"
-    },
-    {
-      "code": "ML101",
-      "name": "Machine Learning Basics",
-      "has_theory": true,
-      "has_practical": true,
-      "subject_type": "mixed",
-      "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-AI"
-    },
-    {
-      "code": "ML201",
-      "name": "Deep Learning",
-      "has_theory": true,
-      "has_practical": true,
-      "subject_type": "mixed",
-      "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-AI"
-    },
-    {
-      "code": "DS101",
-      "name": "Data Science",
-      "has_theory": true,
-      "has_practical": true,
-      "subject_type": "mixed",
-      "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-DS"
-    },
-    {
-      "code": "CLD101",
-      "name": "Cloud Computing",
-      "has_theory": true,
-      "has_practical": true,
-      "subject_type": "mixed",
-      "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-CLD"
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
     },
     {
       "code": "CS201",
-      "name": "Algorithms",
+      "name": "CS Mixed 1",
       "has_theory": true,
-      "has_practical": false,
-      "subject_type": "theory-only",
+      "has_practical": true,
+      "subject_type": "mixed",
       "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 0,
-      "lab_room_code": null
+      "practical_sessions_per_week": 2,
+      "lab_room_code": "CS-LAB-1"
+    },
+    {
+      "code": "CS202",
+      "name": "CS Mixed 2",
+      "has_theory": true,
+      "has_practical": true,
+      "subject_type": "mixed",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 2,
+      "lab_room_code": "CS-LAB-1"
     },
     {
       "code": "AI101",
-      "name": "Artificial Intelligence",
+      "name": "AI Theory 1",
       "has_theory": true,
       "has_practical": false,
       "subject_type": "theory-only",
@@ -101,18 +71,8 @@
       "lab_room_code": null
     },
     {
-      "code": "MAT101",
-      "name": "Mathematics I",
-      "has_theory": true,
-      "has_practical": false,
-      "subject_type": "theory-only",
-      "theory_hours_per_week": 4,
-      "practical_sessions_per_week": 0,
-      "lab_room_code": null
-    },
-    {
-      "code": "MAT201",
-      "name": "Discrete Math",
+      "code": "AI102",
+      "name": "AI Theory 2",
       "has_theory": true,
       "has_practical": false,
       "subject_type": "theory-only",
@@ -121,1089 +81,1809 @@
       "lab_room_code": null
     },
     {
-      "code": "CLD201",
-      "name": "Private Cloud Lab",
-      "has_theory": false,
-      "has_practical": true,
-      "subject_type": "lab-only",
+      "code": "AI103",
+      "name": "AI Theory 3",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
       "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 3,
-      "lab_room_code": "LAB-CLD"
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
     },
     {
-      "code": "CLD301",
-      "name": "Cloud Deployment Lab",
-      "has_theory": false,
-      "has_practical": true,
-      "subject_type": "lab-only",
+      "code": "AI104",
+      "name": "AI Theory 4",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
       "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 3,
-      "lab_room_code": "LAB-CLD"
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
     },
     {
-      "code": "WEB201",
-      "name": "Web Development Lab",
-      "has_theory": false,
-      "has_practical": true,
-      "subject_type": "lab-only",
-      "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 3,
-      "lab_room_code": "LAB-WEB"
-    },
-    {
-      "code": "DB201",
-      "name": "Advanced DB Lab",
-      "has_theory": false,
-      "has_practical": true,
-      "subject_type": "lab-only",
-      "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 3,
-      "lab_room_code": "LAB-DB"
-    },
-    {
-      "code": "PHY201",
-      "name": "Physics Practical",
-      "has_theory": false,
-      "has_practical": true,
-      "subject_type": "lab-only",
-      "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 3,
-      "lab_room_code": "LAB-PHY"
-    },
-    {
-      "code": "STAT201",
-      "name": "Statistics Lab",
-      "has_theory": false,
-      "has_practical": true,
-      "subject_type": "lab-only",
-      "theory_hours_per_week": 3,
-      "practical_sessions_per_week": 3,
-      "lab_room_code": "LAB-STAT"
-    },
-    {
-      "code": "DEV101",
-      "name": "DevOps",
+      "code": "AI201",
+      "name": "AI Mixed 1",
       "has_theory": true,
       "has_practical": true,
       "subject_type": "mixed",
       "theory_hours_per_week": 3,
       "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-DEV"
+      "lab_room_code": "AI-LAB-1"
     },
     {
-      "code": "WEB101",
-      "name": "Web Development",
+      "code": "AI202",
+      "name": "AI Mixed 2",
       "has_theory": true,
       "has_practical": true,
       "subject_type": "mixed",
       "theory_hours_per_week": 3,
       "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-WEB"
+      "lab_room_code": "AI-LAB-1"
     },
     {
-      "code": "MOB101",
-      "name": "Mobile App Dev",
+      "code": "MECH101",
+      "name": "MECH Theory 1",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
+    },
+    {
+      "code": "MECH102",
+      "name": "MECH Theory 2",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
+    },
+    {
+      "code": "MECH103",
+      "name": "MECH Theory 3",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
+    },
+    {
+      "code": "MECH104",
+      "name": "MECH Theory 4",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
+    },
+    {
+      "code": "MECH201",
+      "name": "MECH Mixed 1",
       "has_theory": true,
       "has_practical": true,
       "subject_type": "mixed",
       "theory_hours_per_week": 3,
       "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-MOB"
+      "lab_room_code": "MECH-LAB-1"
     },
     {
-      "code": "DB101",
-      "name": "Database Systems",
+      "code": "MECH202",
+      "name": "MECH Mixed 2",
       "has_theory": true,
       "has_practical": true,
       "subject_type": "mixed",
       "theory_hours_per_week": 3,
       "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-DB"
+      "lab_room_code": "MECH-LAB-1"
     },
     {
-      "code": "PHY101",
-      "name": "Physics I",
+      "code": "CIVIL101",
+      "name": "CIVIL Theory 1",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
+    },
+    {
+      "code": "CIVIL102",
+      "name": "CIVIL Theory 2",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
+    },
+    {
+      "code": "CIVIL103",
+      "name": "CIVIL Theory 3",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
+    },
+    {
+      "code": "CIVIL104",
+      "name": "CIVIL Theory 4",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
+    },
+    {
+      "code": "CIVIL201",
+      "name": "CIVIL Mixed 1",
       "has_theory": true,
       "has_practical": true,
       "subject_type": "mixed",
       "theory_hours_per_week": 3,
       "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-PHY"
+      "lab_room_code": "CIVIL-LAB-1"
     },
     {
-      "code": "STA101",
-      "name": "Statistics",
+      "code": "CIVIL202",
+      "name": "CIVIL Mixed 2",
       "has_theory": true,
       "has_practical": true,
       "subject_type": "mixed",
       "theory_hours_per_week": 3,
       "practical_sessions_per_week": 2,
-      "lab_room_code": "LAB-STAT"
+      "lab_room_code": "CIVIL-LAB-1"
+    },
+    {
+      "code": "ELEC101",
+      "name": "ELEC Theory 1",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
+    },
+    {
+      "code": "ELEC102",
+      "name": "ELEC Theory 2",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
+    },
+    {
+      "code": "ELEC103",
+      "name": "ELEC Theory 3",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
+    },
+    {
+      "code": "ELEC104",
+      "name": "ELEC Theory 4",
+      "has_theory": true,
+      "has_practical": false,
+      "subject_type": "theory-only",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 0,
+      "lab_room_code": null
+    },
+    {
+      "code": "ELEC201",
+      "name": "ELEC Mixed 1",
+      "has_theory": true,
+      "has_practical": true,
+      "subject_type": "mixed",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 2,
+      "lab_room_code": "ELEC-LAB-1"
+    },
+    {
+      "code": "ELEC202",
+      "name": "ELEC Mixed 2",
+      "has_theory": true,
+      "has_practical": true,
+      "subject_type": "mixed",
+      "theory_hours_per_week": 3,
+      "practical_sessions_per_week": 2,
+      "lab_room_code": "ELEC-LAB-1"
     }
   ],
   "classes": [
     {
-      "code": "CS-A",
-      "name": "Computer Science - A",
-      "size": 45,
-      "subjects": [
-        "CS101",
-        "CS102",
-        "CS201",
-        "MAT101",
-        "PHY101"
-      ],
-      "program": "CS",
-      "year": 1
-    },
-    {
-      "code": "CS-B",
-      "name": "Computer Science - B",
-      "size": 42,
-      "subjects": [
-        "CS101",
-        "CS102",
-        "CS201",
-        "MAT101",
-        "PHY101"
-      ],
-      "program": "CS",
-      "year": 1
-    },
-    {
-      "code": "CS-C",
-      "name": "Computer Science - C",
-      "size": 48,
-      "subjects": [
-        "CS102",
-        "CS301",
-        "CS302",
-        "MAT201",
-        "DB101",
-        "PHY201"
-      ],
-      "program": "CS",
-      "year": 2
-    },
-    {
-      "code": "AI-A",
-      "name": "AI & ML - A",
+      "code": "CS-CLASS-1",
+      "name": "CS Section 1",
       "size": 40,
       "subjects": [
-        "ML101",
-        "ML201",
-        "AI101",
-        "DS101",
-        "MAT101",
-        "STAT201"
-      ],
-      "program": "AI",
-      "year": 3
-    },
-    {
-      "code": "AI-B",
-      "name": "AI & ML - B",
-      "size": 38,
-      "subjects": [
-        "ML101",
-        "ML201",
-        "AI101",
-        "DS101",
-        "MAT201",
-        "STAT201"
-      ],
-      "program": "AI",
-      "year": 3
-    },
-    {
-      "code": "CLD-A",
-      "name": "Cloud Computing - A",
-      "size": 35,
-      "subjects": [
-        "CLD101",
-        "CLD201",
-        "CLD301",
-        "DEV101",
-        "CS302",
-        "DB101"
-      ],
-      "program": "Cloud",
-      "year": 3
-    },
-    {
-      "code": "CLD-B",
-      "name": "Cloud Computing - B",
-      "size": 36,
-      "subjects": [
-        "CLD101",
-        "CLD201",
-        "CLD301",
-        "DEV101",
-        "CS302",
-        "DB201"
-      ],
-      "program": "Cloud",
-      "year": 3
-    },
-    {
-      "code": "WEB-A",
-      "name": "Web Development - A",
-      "size": 50,
-      "subjects": [
-        "WEB101",
-        "WEB201",
-        "MOB101",
         "CS101",
-        "DB101",
-        "MAT101"
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
       ],
-      "program": "Web",
-      "year": 2
+      "department": "CS",
+      "program": "",
+      "year": 1
     },
     {
-      "code": "DS-A",
-      "name": "Data Science - A",
-      "size": 32,
+      "code": "CS-CLASS-2",
+      "name": "CS Section 2",
+      "size": 40,
       "subjects": [
-        "DS101",
-        "ML101",
-        "STA101",
-        "DB201",
-        "MAT201",
-        "STAT201"
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
       ],
-      "program": "Data Science",
-      "year": 3
+      "department": "CS",
+      "program": "",
+      "year": 1
     },
     {
-      "code": "DEV-A",
-      "name": "DevOps - A",
-      "size": 30,
+      "code": "CS-CLASS-3",
+      "name": "CS Section 3",
+      "size": 40,
       "subjects": [
-        "DEV101",
-        "CLD101",
-        "CLD301",
-        "CS301",
-        "DB101",
-        "MAT101"
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
       ],
-      "program": "DevOps",
-      "year": 3
+      "department": "CS",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CS-CLASS-4",
+      "name": "CS Section 4",
+      "size": 40,
+      "subjects": [
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
+      ],
+      "department": "CS",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CS-CLASS-5",
+      "name": "CS Section 5",
+      "size": 40,
+      "subjects": [
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
+      ],
+      "department": "CS",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CS-CLASS-6",
+      "name": "CS Section 6",
+      "size": 40,
+      "subjects": [
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
+      ],
+      "department": "CS",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CS-CLASS-7",
+      "name": "CS Section 7",
+      "size": 40,
+      "subjects": [
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
+      ],
+      "department": "CS",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CS-CLASS-8",
+      "name": "CS Section 8",
+      "size": 40,
+      "subjects": [
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
+      ],
+      "department": "CS",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CS-CLASS-9",
+      "name": "CS Section 9",
+      "size": 40,
+      "subjects": [
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
+      ],
+      "department": "CS",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CS-CLASS-10",
+      "name": "CS Section 10",
+      "size": 40,
+      "subjects": [
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
+      ],
+      "department": "CS",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "AI-CLASS-1",
+      "name": "AI Section 1",
+      "size": 40,
+      "subjects": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "department": "AI",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "AI-CLASS-2",
+      "name": "AI Section 2",
+      "size": 40,
+      "subjects": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "department": "AI",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "AI-CLASS-3",
+      "name": "AI Section 3",
+      "size": 40,
+      "subjects": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "department": "AI",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "AI-CLASS-4",
+      "name": "AI Section 4",
+      "size": 40,
+      "subjects": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "department": "AI",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "AI-CLASS-5",
+      "name": "AI Section 5",
+      "size": 40,
+      "subjects": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "department": "AI",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "AI-CLASS-6",
+      "name": "AI Section 6",
+      "size": 40,
+      "subjects": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "department": "AI",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "AI-CLASS-7",
+      "name": "AI Section 7",
+      "size": 40,
+      "subjects": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "department": "AI",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "AI-CLASS-8",
+      "name": "AI Section 8",
+      "size": 40,
+      "subjects": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "department": "AI",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "AI-CLASS-9",
+      "name": "AI Section 9",
+      "size": 40,
+      "subjects": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "department": "AI",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "AI-CLASS-10",
+      "name": "AI Section 10",
+      "size": 40,
+      "subjects": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "department": "AI",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "MECH-CLASS-1",
+      "name": "MECH Section 1",
+      "size": 40,
+      "subjects": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "department": "MECH",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "MECH-CLASS-2",
+      "name": "MECH Section 2",
+      "size": 40,
+      "subjects": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "department": "MECH",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "MECH-CLASS-3",
+      "name": "MECH Section 3",
+      "size": 40,
+      "subjects": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "department": "MECH",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "MECH-CLASS-4",
+      "name": "MECH Section 4",
+      "size": 40,
+      "subjects": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "department": "MECH",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "MECH-CLASS-5",
+      "name": "MECH Section 5",
+      "size": 40,
+      "subjects": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "department": "MECH",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "MECH-CLASS-6",
+      "name": "MECH Section 6",
+      "size": 40,
+      "subjects": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "department": "MECH",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "MECH-CLASS-7",
+      "name": "MECH Section 7",
+      "size": 40,
+      "subjects": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "department": "MECH",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "MECH-CLASS-8",
+      "name": "MECH Section 8",
+      "size": 40,
+      "subjects": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "department": "MECH",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "MECH-CLASS-9",
+      "name": "MECH Section 9",
+      "size": 40,
+      "subjects": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "department": "MECH",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "MECH-CLASS-10",
+      "name": "MECH Section 10",
+      "size": 40,
+      "subjects": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "department": "MECH",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CIVIL-CLASS-1",
+      "name": "CIVIL Section 1",
+      "size": 40,
+      "subjects": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "department": "CIVIL",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CIVIL-CLASS-2",
+      "name": "CIVIL Section 2",
+      "size": 40,
+      "subjects": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "department": "CIVIL",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CIVIL-CLASS-3",
+      "name": "CIVIL Section 3",
+      "size": 40,
+      "subjects": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "department": "CIVIL",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CIVIL-CLASS-4",
+      "name": "CIVIL Section 4",
+      "size": 40,
+      "subjects": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "department": "CIVIL",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CIVIL-CLASS-5",
+      "name": "CIVIL Section 5",
+      "size": 40,
+      "subjects": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "department": "CIVIL",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CIVIL-CLASS-6",
+      "name": "CIVIL Section 6",
+      "size": 40,
+      "subjects": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "department": "CIVIL",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CIVIL-CLASS-7",
+      "name": "CIVIL Section 7",
+      "size": 40,
+      "subjects": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "department": "CIVIL",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CIVIL-CLASS-8",
+      "name": "CIVIL Section 8",
+      "size": 40,
+      "subjects": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "department": "CIVIL",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CIVIL-CLASS-9",
+      "name": "CIVIL Section 9",
+      "size": 40,
+      "subjects": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "department": "CIVIL",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "CIVIL-CLASS-10",
+      "name": "CIVIL Section 10",
+      "size": 40,
+      "subjects": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "department": "CIVIL",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "ELEC-CLASS-1",
+      "name": "ELEC Section 1",
+      "size": 40,
+      "subjects": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "department": "ELEC",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "ELEC-CLASS-2",
+      "name": "ELEC Section 2",
+      "size": 40,
+      "subjects": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "department": "ELEC",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "ELEC-CLASS-3",
+      "name": "ELEC Section 3",
+      "size": 40,
+      "subjects": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "department": "ELEC",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "ELEC-CLASS-4",
+      "name": "ELEC Section 4",
+      "size": 40,
+      "subjects": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "department": "ELEC",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "ELEC-CLASS-5",
+      "name": "ELEC Section 5",
+      "size": 40,
+      "subjects": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "department": "ELEC",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "ELEC-CLASS-6",
+      "name": "ELEC Section 6",
+      "size": 40,
+      "subjects": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "department": "ELEC",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "ELEC-CLASS-7",
+      "name": "ELEC Section 7",
+      "size": 40,
+      "subjects": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "department": "ELEC",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "ELEC-CLASS-8",
+      "name": "ELEC Section 8",
+      "size": 40,
+      "subjects": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "department": "ELEC",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "ELEC-CLASS-9",
+      "name": "ELEC Section 9",
+      "size": 40,
+      "subjects": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "department": "ELEC",
+      "program": "",
+      "year": 1
+    },
+    {
+      "code": "ELEC-CLASS-10",
+      "name": "ELEC Section 10",
+      "size": 40,
+      "subjects": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "department": "ELEC",
+      "program": "",
+      "year": 1
     }
   ],
   "teachers": [
     {
-      "code": "T-P-1",
-      "name": "Dr. Sarah Chen",
+      "code": "CS-T-1",
+      "name": "Prof CS 1",
       "max_daily_hours": 6,
       "max_weekly_hours": 30,
       "can_teach": [
         "CS101",
         "CS102",
-        "WEB101"
-      ]
-    },
-    {
-      "code": "T-P-2",
-      "name": "Prof. Mike Johnson",
-      "max_daily_hours": 6,
-      "max_weekly_hours": 28,
-      "can_teach": [
-        "CS101",
-        "CS102",
-        "MOB101"
-      ]
-    },
-    {
-      "code": "T-P-3",
-      "name": "Dr. Lisa Wang",
-      "max_daily_hours": 6,
-      "max_weekly_hours": 25,
-      "can_teach": [
+        "CS103",
+        "CS104",
         "CS201",
-        "CS301",
-        "DEV101"
-      ]
+        "CS202"
+      ],
+      "unavailable_slots": []
     },
     {
-      "code": "T-ML-1",
-      "name": "Dr. Rajesh Kumar",
-      "max_daily_hours": 6,
-      "max_weekly_hours": 24,
-      "can_teach": [
-        "ML101",
-        "ML201",
-        "AI101"
-      ]
-    },
-    {
-      "code": "T-ML-2",
-      "name": "Prof. Emily Zhang",
-      "max_daily_hours": 6,
-      "max_weekly_hours": 24,
-      "can_teach": [
-        "ML101",
-        "DS101",
-        "AI101"
-      ]
-    },
-    {
-      "code": "T-CLD-1",
-      "name": "Dr. James Wilson",
+      "code": "CS-T-2",
+      "name": "Prof CS 2",
       "max_daily_hours": 6,
       "max_weekly_hours": 30,
       "can_teach": [
-        "CLD101",
-        "CLD201",
-        "CLD301",
-        "DEV101"
-      ]
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
+      ],
+      "unavailable_slots": []
     },
     {
-      "code": "T-CLD-2",
-      "name": "Prof. Maria Garcia",
-      "max_daily_hours": 6,
-      "max_weekly_hours": 24,
-      "can_teach": [
-        "CLD101",
-        "CS302"
-      ]
-    },
-    {
-      "code": "T-DB-1",
-      "name": "Dr. Ahmed Hassan",
-      "max_daily_hours": 6,
-      "max_weekly_hours": 26,
-      "can_teach": [
-        "DB101",
-        "DB201",
-        "DS101"
-      ]
-    },
-    {
-      "code": "T-DB-2",
-      "name": "Prof. Anna Smith",
-      "max_daily_hours": 6,
-      "max_weekly_hours": 22,
-      "can_teach": [
-        "DB101",
-        "DB201"
-      ]
-    },
-    {
-      "code": "T-NET",
-      "name": "Dr. David Lee",
-      "max_daily_hours": 6,
-      "max_weekly_hours": 24,
-      "can_teach": [
-        "CS302",
-        "CS301"
-      ]
-    },
-    {
-      "code": "T-WEB",
-      "name": "Prof. Sophie Brown",
-      "max_daily_hours": 6,
-      "max_weekly_hours": 24,
-      "can_teach": [
-        "WEB101",
-        "MOB101"
-      ]
-    },
-    {
-      "code": "T-MATH-1",
-      "name": "Dr. Robert Taylor",
+      "code": "CS-T-3",
+      "name": "Prof CS 3",
       "max_daily_hours": 6,
       "max_weekly_hours": 30,
       "can_teach": [
-        "MAT101",
-        "MAT201",
-        "STA101"
-      ]
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
+      ],
+      "unavailable_slots": []
     },
     {
-      "code": "T-MATH-2",
-      "name": "Prof. Jennifer White",
+      "code": "CS-T-4",
+      "name": "Prof CS 4",
       "max_daily_hours": 6,
-      "max_weekly_hours": 24,
+      "max_weekly_hours": 30,
       "can_teach": [
-        "MAT101",
-        "MAT201"
-      ]
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
+      ],
+      "unavailable_slots": []
     },
     {
-      "code": "T-PHY",
-      "name": "Dr. Michael Brown",
+      "code": "CS-T-5",
+      "name": "Prof CS 5",
       "max_daily_hours": 6,
-      "max_weekly_hours": 20,
+      "max_weekly_hours": 30,
       "can_teach": [
-        "PHY101"
-      ]
+        "CS101",
+        "CS102",
+        "CS103",
+        "CS104",
+        "CS201",
+        "CS202"
+      ],
+      "unavailable_slots": []
     },
     {
-      "code": "T-STAT",
-      "name": "Prof. Laura Davis",
+      "code": "AI-T-1",
+      "name": "Prof AI 1",
       "max_daily_hours": 6,
-      "max_weekly_hours": 22,
+      "max_weekly_hours": 30,
       "can_teach": [
-        "STA101",
-        "DS101"
-      ]
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "AI-T-2",
+      "name": "Prof AI 2",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "AI-T-3",
+      "name": "Prof AI 3",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "AI-T-4",
+      "name": "Prof AI 4",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "AI-T-5",
+      "name": "Prof AI 5",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "AI101",
+        "AI102",
+        "AI103",
+        "AI104",
+        "AI201",
+        "AI202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "MECH-T-1",
+      "name": "Prof MECH 1",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "MECH-T-2",
+      "name": "Prof MECH 2",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "MECH-T-3",
+      "name": "Prof MECH 3",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "MECH-T-4",
+      "name": "Prof MECH 4",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "MECH-T-5",
+      "name": "Prof MECH 5",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "MECH101",
+        "MECH102",
+        "MECH103",
+        "MECH104",
+        "MECH201",
+        "MECH202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "CIVIL-T-1",
+      "name": "Prof CIVIL 1",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "CIVIL-T-2",
+      "name": "Prof CIVIL 2",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "CIVIL-T-3",
+      "name": "Prof CIVIL 3",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "CIVIL-T-4",
+      "name": "Prof CIVIL 4",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "CIVIL-T-5",
+      "name": "Prof CIVIL 5",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "CIVIL101",
+        "CIVIL102",
+        "CIVIL103",
+        "CIVIL104",
+        "CIVIL201",
+        "CIVIL202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "ELEC-T-1",
+      "name": "Prof ELEC 1",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "ELEC-T-2",
+      "name": "Prof ELEC 2",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "ELEC-T-3",
+      "name": "Prof ELEC 3",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "ELEC-T-4",
+      "name": "Prof ELEC 4",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "unavailable_slots": []
+    },
+    {
+      "code": "ELEC-T-5",
+      "name": "Prof ELEC 5",
+      "max_daily_hours": 6,
+      "max_weekly_hours": 30,
+      "can_teach": [
+        "ELEC101",
+        "ELEC102",
+        "ELEC103",
+        "ELEC104",
+        "ELEC201",
+        "ELEC202"
+      ],
+      "unavailable_slots": []
     }
   ],
   "rooms": [
     {
-      "code": "LH-1",
-      "name": "Lecture Hall 1",
+      "code": "CS-LH-1",
+      "name": "CS Lecture Hall 1",
       "room_type": "lecture",
-      "capacity": 100
+      "capacity": 60,
+      "department": "CS"
     },
     {
-      "code": "LH-2",
-      "name": "Lecture Hall 2",
+      "code": "CS-LH-2",
+      "name": "CS Lecture Hall 2",
       "room_type": "lecture",
-      "capacity": 80
+      "capacity": 60,
+      "department": "CS"
     },
     {
-      "code": "LH-3",
-      "name": "Lecture Hall 3",
+      "code": "CS-LH-3",
+      "name": "CS Lecture Hall 3",
       "room_type": "lecture",
-      "capacity": 60
+      "capacity": 60,
+      "department": "CS"
     },
     {
-      "code": "LH-4",
-      "name": "Lecture Hall 4",
+      "code": "CS-LAB-1",
+      "name": "CS Lab 1",
+      "room_type": "lab",
+      "capacity": 30,
+      "department": "CS"
+    },
+    {
+      "code": "CS-LAB-2",
+      "name": "CS Lab 2",
+      "room_type": "lab",
+      "capacity": 30,
+      "department": "CS"
+    },
+    {
+      "code": "AI-LH-1",
+      "name": "AI Lecture Hall 1",
       "room_type": "lecture",
-      "capacity": 60
+      "capacity": 60,
+      "department": "AI"
     },
     {
-      "code": "LAB-CS-1",
-      "name": "CS Programming Lab",
-      "room_type": "lab",
-      "capacity": 25
+      "code": "AI-LH-2",
+      "name": "AI Lecture Hall 2",
+      "room_type": "lecture",
+      "capacity": 60,
+      "department": "AI"
     },
     {
-      "code": "LAB-OS",
-      "name": "OS & Systems Lab",
-      "room_type": "lab",
-      "capacity": 20
+      "code": "AI-LH-3",
+      "name": "AI Lecture Hall 3",
+      "room_type": "lecture",
+      "capacity": 60,
+      "department": "AI"
     },
     {
-      "code": "LAB-NET",
-      "name": "Networking Lab",
+      "code": "AI-LAB-1",
+      "name": "AI Lab 1",
       "room_type": "lab",
-      "capacity": 20
+      "capacity": 30,
+      "department": "AI"
     },
     {
-      "code": "LAB-AI",
-      "name": "AI & ML Lab",
+      "code": "AI-LAB-2",
+      "name": "AI Lab 2",
       "room_type": "lab",
-      "capacity": 20
+      "capacity": 30,
+      "department": "AI"
     },
     {
-      "code": "LAB-DS",
-      "name": "Data Science Lab",
-      "room_type": "lab",
-      "capacity": 25
+      "code": "MECH-LH-1",
+      "name": "MECH Lecture Hall 1",
+      "room_type": "lecture",
+      "capacity": 60,
+      "department": "MECH"
     },
     {
-      "code": "LAB-CLD",
-      "name": "Cloud Computing Lab",
-      "room_type": "lab",
-      "capacity": 30
+      "code": "MECH-LH-2",
+      "name": "MECH Lecture Hall 2",
+      "room_type": "lecture",
+      "capacity": 60,
+      "department": "MECH"
     },
     {
-      "code": "LAB-DEV",
-      "name": "DevOps Lab",
-      "room_type": "lab",
-      "capacity": 25
+      "code": "MECH-LH-3",
+      "name": "MECH Lecture Hall 3",
+      "room_type": "lecture",
+      "capacity": 60,
+      "department": "MECH"
     },
     {
-      "code": "LAB-WEB",
-      "name": "Web Development Lab",
+      "code": "MECH-LAB-1",
+      "name": "MECH Lab 1",
       "room_type": "lab",
-      "capacity": 30
+      "capacity": 30,
+      "department": "MECH"
     },
     {
-      "code": "LAB-MOB",
-      "name": "Mobile Dev Lab",
+      "code": "MECH-LAB-2",
+      "name": "MECH Lab 2",
       "room_type": "lab",
-      "capacity": 25
+      "capacity": 30,
+      "department": "MECH"
     },
     {
-      "code": "LAB-DB",
-      "name": "Database Lab",
-      "room_type": "lab",
-      "capacity": 30
+      "code": "CIVIL-LH-1",
+      "name": "CIVIL Lecture Hall 1",
+      "room_type": "lecture",
+      "capacity": 60,
+      "department": "CIVIL"
     },
     {
-      "code": "LAB-PHY",
-      "name": "Physics Lab",
-      "room_type": "lab",
-      "capacity": 20
+      "code": "CIVIL-LH-2",
+      "name": "CIVIL Lecture Hall 2",
+      "room_type": "lecture",
+      "capacity": 60,
+      "department": "CIVIL"
     },
     {
-      "code": "LAB-STAT",
-      "name": "Statistics Lab",
+      "code": "CIVIL-LH-3",
+      "name": "CIVIL Lecture Hall 3",
+      "room_type": "lecture",
+      "capacity": 60,
+      "department": "CIVIL"
+    },
+    {
+      "code": "CIVIL-LAB-1",
+      "name": "CIVIL Lab 1",
       "room_type": "lab",
-      "capacity": 25
+      "capacity": 30,
+      "department": "CIVIL"
+    },
+    {
+      "code": "CIVIL-LAB-2",
+      "name": "CIVIL Lab 2",
+      "room_type": "lab",
+      "capacity": 30,
+      "department": "CIVIL"
+    },
+    {
+      "code": "ELEC-LH-1",
+      "name": "ELEC Lecture Hall 1",
+      "room_type": "lecture",
+      "capacity": 60,
+      "department": "ELEC"
+    },
+    {
+      "code": "ELEC-LH-2",
+      "name": "ELEC Lecture Hall 2",
+      "room_type": "lecture",
+      "capacity": 60,
+      "department": "ELEC"
+    },
+    {
+      "code": "ELEC-LH-3",
+      "name": "ELEC Lecture Hall 3",
+      "room_type": "lecture",
+      "capacity": 60,
+      "department": "ELEC"
+    },
+    {
+      "code": "ELEC-LAB-1",
+      "name": "ELEC Lab 1",
+      "room_type": "lab",
+      "capacity": 30,
+      "department": "ELEC"
+    },
+    {
+      "code": "ELEC-LAB-2",
+      "name": "ELEC Lab 2",
+      "room_type": "lab",
+      "capacity": 30,
+      "department": "ELEC"
     }
   ],
-  "time_slots": 30,
-  "validation_report": {
-    "shared_teacher_conflicts": [
-      {
-        "teacher": "Dr. Sarah Chen (T-P-1)",
-        "subject": "Intro to Programming (CS101)",
-        "classes": [
-          "Computer Science - A",
-          "Computer Science - B",
-          "Web Development - A"
-        ],
-        "class_codes": [
-          "CS-A",
-          "CS-B",
-          "WEB-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Prof. Mike Johnson (T-P-2)",
-        "subject": "Intro to Programming (CS101)",
-        "classes": [
-          "Computer Science - A",
-          "Computer Science - B",
-          "Web Development - A"
-        ],
-        "class_codes": [
-          "CS-A",
-          "CS-B",
-          "WEB-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Dr. Sarah Chen (T-P-1)",
-        "subject": "Data Structures (CS102)",
-        "classes": [
-          "Computer Science - A",
-          "Computer Science - B",
-          "Computer Science - C"
-        ],
-        "class_codes": [
-          "CS-A",
-          "CS-B",
-          "CS-C"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Prof. Mike Johnson (T-P-2)",
-        "subject": "Data Structures (CS102)",
-        "classes": [
-          "Computer Science - A",
-          "Computer Science - B",
-          "Computer Science - C"
-        ],
-        "class_codes": [
-          "CS-A",
-          "CS-B",
-          "CS-C"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Dr. Lisa Wang (T-P-3)",
-        "subject": "Algorithms (CS201)",
-        "classes": [
-          "Computer Science - A",
-          "Computer Science - B"
-        ],
-        "class_codes": [
-          "CS-A",
-          "CS-B"
-        ],
-        "count": 2
-      },
-      {
-        "teacher": "Dr. Robert Taylor (T-MATH-1)",
-        "subject": "Mathematics I (MAT101)",
-        "classes": [
-          "Computer Science - A",
-          "Computer Science - B",
-          "AI & ML - A",
-          "Web Development - A",
-          "DevOps - A"
-        ],
-        "class_codes": [
-          "CS-A",
-          "CS-B",
-          "AI-A",
-          "WEB-A",
-          "DEV-A"
-        ],
-        "count": 5
-      },
-      {
-        "teacher": "Prof. Jennifer White (T-MATH-2)",
-        "subject": "Mathematics I (MAT101)",
-        "classes": [
-          "Computer Science - A",
-          "Computer Science - B",
-          "AI & ML - A",
-          "Web Development - A",
-          "DevOps - A"
-        ],
-        "class_codes": [
-          "CS-A",
-          "CS-B",
-          "AI-A",
-          "WEB-A",
-          "DEV-A"
-        ],
-        "count": 5
-      },
-      {
-        "teacher": "Dr. Michael Brown (T-PHY)",
-        "subject": "Physics I (PHY101)",
-        "classes": [
-          "Computer Science - A",
-          "Computer Science - B"
-        ],
-        "class_codes": [
-          "CS-A",
-          "CS-B"
-        ],
-        "count": 2
-      },
-      {
-        "teacher": "Dr. Lisa Wang (T-P-3)",
-        "subject": "Operating Systems (CS301)",
-        "classes": [
-          "Computer Science - C",
-          "DevOps - A"
-        ],
-        "class_codes": [
-          "CS-C",
-          "DEV-A"
-        ],
-        "count": 2
-      },
-      {
-        "teacher": "Dr. David Lee (T-NET)",
-        "subject": "Operating Systems (CS301)",
-        "classes": [
-          "Computer Science - C",
-          "DevOps - A"
-        ],
-        "class_codes": [
-          "CS-C",
-          "DEV-A"
-        ],
-        "count": 2
-      },
-      {
-        "teacher": "Prof. Maria Garcia (T-CLD-2)",
-        "subject": "Computer Networks (CS302)",
-        "classes": [
-          "Computer Science - C",
-          "Cloud Computing - A",
-          "Cloud Computing - B"
-        ],
-        "class_codes": [
-          "CS-C",
-          "CLD-A",
-          "CLD-B"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Dr. David Lee (T-NET)",
-        "subject": "Computer Networks (CS302)",
-        "classes": [
-          "Computer Science - C",
-          "Cloud Computing - A",
-          "Cloud Computing - B"
-        ],
-        "class_codes": [
-          "CS-C",
-          "CLD-A",
-          "CLD-B"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Dr. Robert Taylor (T-MATH-1)",
-        "subject": "Discrete Math (MAT201)",
-        "classes": [
-          "Computer Science - C",
-          "AI & ML - B",
-          "Data Science - A"
-        ],
-        "class_codes": [
-          "CS-C",
-          "AI-B",
-          "DS-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Prof. Jennifer White (T-MATH-2)",
-        "subject": "Discrete Math (MAT201)",
-        "classes": [
-          "Computer Science - C",
-          "AI & ML - B",
-          "Data Science - A"
-        ],
-        "class_codes": [
-          "CS-C",
-          "AI-B",
-          "DS-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Dr. Ahmed Hassan (T-DB-1)",
-        "subject": "Database Systems (DB101)",
-        "classes": [
-          "Computer Science - C",
-          "Cloud Computing - A",
-          "Web Development - A",
-          "DevOps - A"
-        ],
-        "class_codes": [
-          "CS-C",
-          "CLD-A",
-          "WEB-A",
-          "DEV-A"
-        ],
-        "count": 4
-      },
-      {
-        "teacher": "Prof. Anna Smith (T-DB-2)",
-        "subject": "Database Systems (DB101)",
-        "classes": [
-          "Computer Science - C",
-          "Cloud Computing - A",
-          "Web Development - A",
-          "DevOps - A"
-        ],
-        "class_codes": [
-          "CS-C",
-          "CLD-A",
-          "WEB-A",
-          "DEV-A"
-        ],
-        "count": 4
-      },
-      {
-        "teacher": "Dr. Rajesh Kumar (T-ML-1)",
-        "subject": "Machine Learning Basics (ML101)",
-        "classes": [
-          "AI & ML - A",
-          "AI & ML - B",
-          "Data Science - A"
-        ],
-        "class_codes": [
-          "AI-A",
-          "AI-B",
-          "DS-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Prof. Emily Zhang (T-ML-2)",
-        "subject": "Machine Learning Basics (ML101)",
-        "classes": [
-          "AI & ML - A",
-          "AI & ML - B",
-          "Data Science - A"
-        ],
-        "class_codes": [
-          "AI-A",
-          "AI-B",
-          "DS-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Dr. Rajesh Kumar (T-ML-1)",
-        "subject": "Deep Learning (ML201)",
-        "classes": [
-          "AI & ML - A",
-          "AI & ML - B"
-        ],
-        "class_codes": [
-          "AI-A",
-          "AI-B"
-        ],
-        "count": 2
-      },
-      {
-        "teacher": "Dr. Rajesh Kumar (T-ML-1)",
-        "subject": "Artificial Intelligence (AI101)",
-        "classes": [
-          "AI & ML - A",
-          "AI & ML - B"
-        ],
-        "class_codes": [
-          "AI-A",
-          "AI-B"
-        ],
-        "count": 2
-      },
-      {
-        "teacher": "Prof. Emily Zhang (T-ML-2)",
-        "subject": "Artificial Intelligence (AI101)",
-        "classes": [
-          "AI & ML - A",
-          "AI & ML - B"
-        ],
-        "class_codes": [
-          "AI-A",
-          "AI-B"
-        ],
-        "count": 2
-      },
-      {
-        "teacher": "Prof. Emily Zhang (T-ML-2)",
-        "subject": "Data Science (DS101)",
-        "classes": [
-          "AI & ML - A",
-          "AI & ML - B",
-          "Data Science - A"
-        ],
-        "class_codes": [
-          "AI-A",
-          "AI-B",
-          "DS-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Dr. Ahmed Hassan (T-DB-1)",
-        "subject": "Data Science (DS101)",
-        "classes": [
-          "AI & ML - A",
-          "AI & ML - B",
-          "Data Science - A"
-        ],
-        "class_codes": [
-          "AI-A",
-          "AI-B",
-          "DS-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Prof. Laura Davis (T-STAT)",
-        "subject": "Data Science (DS101)",
-        "classes": [
-          "AI & ML - A",
-          "AI & ML - B",
-          "Data Science - A"
-        ],
-        "class_codes": [
-          "AI-A",
-          "AI-B",
-          "DS-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Dr. James Wilson (T-CLD-1)",
-        "subject": "Cloud Computing (CLD101)",
-        "classes": [
-          "Cloud Computing - A",
-          "Cloud Computing - B",
-          "DevOps - A"
-        ],
-        "class_codes": [
-          "CLD-A",
-          "CLD-B",
-          "DEV-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Prof. Maria Garcia (T-CLD-2)",
-        "subject": "Cloud Computing (CLD101)",
-        "classes": [
-          "Cloud Computing - A",
-          "Cloud Computing - B",
-          "DevOps - A"
-        ],
-        "class_codes": [
-          "CLD-A",
-          "CLD-B",
-          "DEV-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Dr. James Wilson (T-CLD-1)",
-        "subject": "Private Cloud Lab (CLD201)",
-        "classes": [
-          "Cloud Computing - A",
-          "Cloud Computing - B"
-        ],
-        "class_codes": [
-          "CLD-A",
-          "CLD-B"
-        ],
-        "count": 2
-      },
-      {
-        "teacher": "Dr. James Wilson (T-CLD-1)",
-        "subject": "Cloud Deployment Lab (CLD301)",
-        "classes": [
-          "Cloud Computing - A",
-          "Cloud Computing - B",
-          "DevOps - A"
-        ],
-        "class_codes": [
-          "CLD-A",
-          "CLD-B",
-          "DEV-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Dr. Lisa Wang (T-P-3)",
-        "subject": "DevOps (DEV101)",
-        "classes": [
-          "Cloud Computing - A",
-          "Cloud Computing - B",
-          "DevOps - A"
-        ],
-        "class_codes": [
-          "CLD-A",
-          "CLD-B",
-          "DEV-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Dr. James Wilson (T-CLD-1)",
-        "subject": "DevOps (DEV101)",
-        "classes": [
-          "Cloud Computing - A",
-          "Cloud Computing - B",
-          "DevOps - A"
-        ],
-        "class_codes": [
-          "CLD-A",
-          "CLD-B",
-          "DEV-A"
-        ],
-        "count": 3
-      },
-      {
-        "teacher": "Dr. Ahmed Hassan (T-DB-1)",
-        "subject": "Advanced DB Lab (DB201)",
-        "classes": [
-          "Cloud Computing - B",
-          "Data Science - A"
-        ],
-        "class_codes": [
-          "CLD-B",
-          "DS-A"
-        ],
-        "count": 2
-      },
-      {
-        "teacher": "Prof. Anna Smith (T-DB-2)",
-        "subject": "Advanced DB Lab (DB201)",
-        "classes": [
-          "Cloud Computing - B",
-          "Data Science - A"
-        ],
-        "class_codes": [
-          "CLD-B",
-          "DS-A"
-        ],
-        "count": 2
-      }
-    ],
-    "capacity_issues": [],
-    "hour_violations": [
-      {
-        "teacher": "Dr. Sarah Chen (T-P-1)",
-        "needed": 35,
-        "available": 30,
-        "overage": 5
-      },
-      {
-        "teacher": "Prof. Mike Johnson (T-P-2)",
-        "needed": 35,
-        "available": 28,
-        "overage": 7
-      },
-      {
-        "teacher": "Dr. Lisa Wang (T-P-3)",
-        "needed": 31,
-        "available": 25,
-        "overage": 6
-      },
-      {
-        "teacher": "Dr. Rajesh Kumar (T-ML-1)",
-        "needed": 31,
-        "available": 24,
-        "overage": 7
-      },
-      {
-        "teacher": "Prof. Emily Zhang (T-ML-2)",
-        "needed": 36,
-        "available": 24,
-        "overage": 12
-      },
-      {
-        "teacher": "Dr. James Wilson (T-CLD-1)",
-        "needed": 60,
-        "available": 30,
-        "overage": 30
-      },
-      {
-        "teacher": "Prof. Maria Garcia (T-CLD-2)",
-        "needed": 30,
-        "available": 24,
-        "overage": 6
-      },
-      {
-        "teacher": "Dr. Ahmed Hassan (T-DB-1)",
-        "needed": 47,
-        "available": 26,
-        "overage": 21
-      },
-      {
-        "teacher": "Prof. Anna Smith (T-DB-2)",
-        "needed": 32,
-        "available": 22,
-        "overage": 10
-      },
-      {
-        "teacher": "Dr. David Lee (T-NET)",
-        "needed": 25,
-        "available": 24,
-        "overage": 1
-      },
-      {
-        "teacher": "Dr. Robert Taylor (T-MATH-1)",
-        "needed": 34,
-        "available": 30,
-        "overage": 4
-      },
-      {
-        "teacher": "Prof. Jennifer White (T-MATH-2)",
-        "needed": 29,
-        "available": 24,
-        "overage": 5
-      }
-    ],
-    "warnings": [
-      "Subject WEB201 has no eligible teachers!",
-      "Subject PHY201 has no eligible teachers!",
-      "Subject STAT201 has no eligible teachers!"
-    ]
+  "time_slots": [
+    {
+      "index": 0,
+      "day": 0,
+      "slot": 0,
+      "day_name": "Monday",
+      "time": "9:00"
+    },
+    {
+      "index": 1,
+      "day": 0,
+      "slot": 1,
+      "day_name": "Monday",
+      "time": "10:00"
+    },
+    {
+      "index": 2,
+      "day": 0,
+      "slot": 2,
+      "day_name": "Monday",
+      "time": "11:00"
+    },
+    {
+      "index": 3,
+      "day": 0,
+      "slot": 3,
+      "day_name": "Monday",
+      "time": "12:00"
+    },
+    {
+      "index": 4,
+      "day": 0,
+      "slot": 4,
+      "day_name": "Monday",
+      "time": "13:00"
+    },
+    {
+      "index": 5,
+      "day": 0,
+      "slot": 5,
+      "day_name": "Monday",
+      "time": "14:00"
+    },
+    {
+      "index": 6,
+      "day": 1,
+      "slot": 0,
+      "day_name": "Tuesday",
+      "time": "9:00"
+    },
+    {
+      "index": 7,
+      "day": 1,
+      "slot": 1,
+      "day_name": "Tuesday",
+      "time": "10:00"
+    },
+    {
+      "index": 8,
+      "day": 1,
+      "slot": 2,
+      "day_name": "Tuesday",
+      "time": "11:00"
+    },
+    {
+      "index": 9,
+      "day": 1,
+      "slot": 3,
+      "day_name": "Tuesday",
+      "time": "12:00"
+    },
+    {
+      "index": 10,
+      "day": 1,
+      "slot": 4,
+      "day_name": "Tuesday",
+      "time": "13:00"
+    },
+    {
+      "index": 11,
+      "day": 1,
+      "slot": 5,
+      "day_name": "Tuesday",
+      "time": "14:00"
+    },
+    {
+      "index": 12,
+      "day": 2,
+      "slot": 0,
+      "day_name": "Wednesday",
+      "time": "9:00"
+    },
+    {
+      "index": 13,
+      "day": 2,
+      "slot": 1,
+      "day_name": "Wednesday",
+      "time": "10:00"
+    },
+    {
+      "index": 14,
+      "day": 2,
+      "slot": 2,
+      "day_name": "Wednesday",
+      "time": "11:00"
+    },
+    {
+      "index": 15,
+      "day": 2,
+      "slot": 3,
+      "day_name": "Wednesday",
+      "time": "12:00"
+    },
+    {
+      "index": 16,
+      "day": 2,
+      "slot": 4,
+      "day_name": "Wednesday",
+      "time": "13:00"
+    },
+    {
+      "index": 17,
+      "day": 2,
+      "slot": 5,
+      "day_name": "Wednesday",
+      "time": "14:00"
+    },
+    {
+      "index": 18,
+      "day": 3,
+      "slot": 0,
+      "day_name": "Thursday",
+      "time": "9:00"
+    },
+    {
+      "index": 19,
+      "day": 3,
+      "slot": 1,
+      "day_name": "Thursday",
+      "time": "10:00"
+    },
+    {
+      "index": 20,
+      "day": 3,
+      "slot": 2,
+      "day_name": "Thursday",
+      "time": "11:00"
+    },
+    {
+      "index": 21,
+      "day": 3,
+      "slot": 3,
+      "day_name": "Thursday",
+      "time": "12:00"
+    },
+    {
+      "index": 22,
+      "day": 3,
+      "slot": 4,
+      "day_name": "Thursday",
+      "time": "13:00"
+    },
+    {
+      "index": 23,
+      "day": 3,
+      "slot": 5,
+      "day_name": "Thursday",
+      "time": "14:00"
+    },
+    {
+      "index": 24,
+      "day": 4,
+      "slot": 0,
+      "day_name": "Friday",
+      "time": "9:00"
+    },
+    {
+      "index": 25,
+      "day": 4,
+      "slot": 1,
+      "day_name": "Friday",
+      "time": "10:00"
+    },
+    {
+      "index": 26,
+      "day": 4,
+      "slot": 2,
+      "day_name": "Friday",
+      "time": "11:00"
+    },
+    {
+      "index": 27,
+      "day": 4,
+      "slot": 3,
+      "day_name": "Friday",
+      "time": "12:00"
+    },
+    {
+      "index": 28,
+      "day": 4,
+      "slot": 4,
+      "day_name": "Friday",
+      "time": "13:00"
+    },
+    {
+      "index": 29,
+      "day": 4,
+      "slot": 5,
+      "day_name": "Friday",
+      "time": "14:00"
+    }
+  ],
+  "days": [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday"
+  ],
+  "slots_per_day": 6,
+  "ai_features": {
+    "num_subjects": 30,
+    "num_classes": 50,
+    "num_teachers": 25,
+    "num_rooms": 25,
+    "theory_load_ratio": 6.0,
+    "room_utilization_potential": 7.333333333333333,
+    "teacher_student_ratio": 0.5
   }
 }

@@ -2,11 +2,12 @@
 
 ## Overview
 
-This document provides detailed pseudocode for the automated timetable generation algorithm using Constraint Programming (CP-SAT).
+This document provides detailed pseudocode for the **CLI Solver** (`timetable_solver.py`) automated timetable generation algorithm using Constraint Programming (CP-SAT).
 
 ## Algorithm Structure
 
 The algorithm follows a multi-phase approach:
+
 1. **Data Preparation** - Parse and validate input data
 2. **Variable Creation** - Define decision variables
 3. **Constraint Addition** - Add hard and soft constraints
