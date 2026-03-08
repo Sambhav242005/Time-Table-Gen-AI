@@ -1,125 +1,82 @@
-# Advanced Timetable Generator
+# Timetable Generator AI
 
-A comprehensive PyQt5-based application for generating optimized timetables for educational institutions with multi-constraint optimization and conflict resolution.
+PyQt5 desktop application for generating university timetables using Google OR-Tools CP-SAT.
 
-## Features
+## Requirements
 
-- **Multi-Entity Management**: Manage teachers, subjects, sections, and rooms with detailed configurations
-- **Intelligent Scheduling**: Advanced constraint-based timetable generation with conflict resolution
-- **Parallel Processing**: Efficient generation using background threads for better performance
-- **Multiple Views**: View timetables by section, teacher, or room
-- **PDF Export**: Export all timetables as professional PDF documents
-- **Lab Course Support**: Special handling for laboratory courses with block scheduling
-- **Flexible Configuration**: Customizable working days, slots per day, and optimization strategies
-- **Sample Data**: Quick setup with sample data for testing and demonstration
+- Windows
+- Python 3.12+
 
-## Screenshots
+## Setup
 
-*Add screenshots of the application interface here*
-
-## Installation
-
-### Prerequisites
-
-- Python 3.7 or higher
-- PyQt5
-- ReportLab (for PDF generation)
-
-### Install Dependencies
-
-```bash
-pip install PyQt5 reportlab
+```powershell
+py -3.12 -m venv venv
+.\venv\Scripts\activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-### Run the Application
+## Run
 
-```bash
+```powershell
+.\venv\Scripts\activate
 python main.py
 ```
 
-## Usage
+## How to Use the App
 
-1. **Setup Data**: Configure teachers, subjects, sections, and rooms
-2. **Generate Timetables**: Select working days and optimization strategy
-3. **View Results**: Browse timetables by section, teacher, or room
-4. **Export PDFs**: Save all timetables as PDF files
+1. Open `SETUP` and click `Initialize with Sample Data` (or manually add your own data).
+2. Configure entities in pages: `TEACHERS`, `SUBJECTS`, `SECTIONS`, `ROOMS`.
+3. Open `GENERATE` and click `GENERATE`.
+4. After success, open `VIEW` to inspect section/teacher/room timetables.
+5. Export results from the UI as needed (JSON/PDF features are available in the app).
 
-### Quick Start
+## Development Commands
 
-1. Launch the application
-2. Go to SETUP page and initialize sample data
-3. Navigate to GENERATE page and click "Generate Timetables"
-4. View the results in the VIEW page
-5. Export timetables as PDFs
+```powershell
+# Lint
+ruff check .
+
+# Auto-fix lint issues
+ruff check --fix .
+
+# Check one file
+ruff check ui/main_window.py
+
+# Syntax check
+python -m py_compile core/generator_thread.py
+```
 
 ## Project Structure
 
+```text
+Time-Table-Gen-AI/
+├── main.py
+├── core/
+│   ├── data_models.py
+│   ├── generator_thread.py
+│   ├── solver_worker.py
+│   ├── json_parser.py
+│   └── dataframe_parser.py
+├── ui/
+│   ├── main_window.py
+│   └── pages/
+├── output/
+├── requirements.txt
+└── README.md
 ```
-├── main.py                 # Main application file
-├── README.md              # Project documentation
-└── .gitignore            # Git ignore rules
+
+## Troubleshooting
+
+- If timetable generation fails with OR-Tools errors:
+  - Confirm you are running inside the project `venv`.
+  - Reinstall dependencies:
+
+```powershell
+.\venv\Scripts\activate
+pip install --force-reinstall --no-cache-dir -r requirements.txt
 ```
 
-## Dependencies
-
-- PyQt5: GUI framework
-- ReportLab: PDF generation
-- Python Standard Library modules (sys, random, json, datetime, etc.)
-
-## Features in Detail
-
-### Teacher Management
-- Add/edit teacher information
-- Configure maximum daily and weekly load
-- Set availability constraints
-
-### Subject Management
-- Regular subjects with credits and weekly slots
-- Lab courses with block scheduling
-- Different lab types (Computer Science, Physics, Chemistry, etc.)
-
-### Section Management
-- Multiple sections per semester
-- Configurable section strength
-- Semester-wise organization
-
-### Room Management
-- Classrooms and laboratories
-- Capacity management
-- Lab type specifications
-
-### Timetable Generation
-- Multi-constraint optimization
-- Conflict resolution algorithms
-- Parallel processing for efficiency
-- Progress tracking and status updates
-
-### Export Features
-- Section timetables
-- Teacher timetables
-- Room timetables
-- Professional PDF formatting
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support and questions, please open an issue on the GitHub repository.
-
-## Version
-
-Current Version: 2.0
-
-## Author
-
-Academic Solutions Team
+- Logs:
+  - `generator.log`: solver/generation logs
+  - `app.log`: UI/application logs

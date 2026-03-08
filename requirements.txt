@@ -1,4 +1,6 @@
-PyQt5
-reportlab
-pandas
-numpy
+PyQt5==5.15.11
+reportlab==4.4.1
+pandas==2.2.3
+numpy==2.2.3
+ortools==9.12.4544
+scipy==1.15.2

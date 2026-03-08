@@ -1,14 +1,43 @@
 import random
 import json
 import math
+import logging
+import traceback
 import pandas as pd
 from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QLabel, QVBoxLayout, QHBoxLayout, QWidget,
-    QPushButton, QMenu, QStackedWidget, QTextEdit, QMessageBox, QLineEdit,
-    QSpinBox, QCheckBox, QTableWidget, QTableWidgetItem, QDialog, QFileDialog,
-    QScrollArea, QFrame, QComboBox, QTabWidget, QProgressBar, QSplitter,
-    QListWidget, QListWidgetItem, QGroupBox, QFormLayout, QTimeEdit, QDateEdit,
-    QTreeWidget, QTreeWidgetItem, QHeaderView
+    QApplication,
+    QMainWindow,
+    QLabel,
+    QVBoxLayout,
+    QHBoxLayout,
+    QWidget,
+    QPushButton,
+    QMenu,
+    QStackedWidget,
+    QTextEdit,
+    QMessageBox,
+    QLineEdit,
+    QSpinBox,
+    QCheckBox,
+    QTableWidget,
+    QTableWidgetItem,
+    QDialog,
+    QFileDialog,
+    QScrollArea,
+    QFrame,
+    QComboBox,
+    QTabWidget,
+    QProgressBar,
+    QSplitter,
+    QListWidget,
+    QListWidgetItem,
+    QGroupBox,
+    QFormLayout,
+    QTimeEdit,
+    QDateEdit,
+    QTreeWidget,
+    QTreeWidgetItem,
+    QHeaderView,
 )
 from PyQt5.QtGui import QFont, QPixmap, QPalette, QColor
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
@@ -26,6 +55,16 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.FileHandler("app.log", encoding="utf-8"),
+        logging.StreamHandler(),
+    ],
+)
+logger = logging.getLogger(__name__)
 
 
 class AdvancedTimetableApp(QMainWindow):
@@ -72,8 +111,14 @@ class AdvancedTimetableApp(QMainWindow):
         header_layout.addStretch()
 
         nav_links = [
-            ("HOME", 0), ("SETUP", 1), ("TEACHERS", 2), ("SUBJECTS", 3),
-            ("SECTIONS", 4), ("ROOMS", 5), ("GENERATE", 6), ("VIEW", 7)
+            ("HOME", 0),
+            ("SETUP", 1),
+            ("TEACHERS", 2),
+            ("SUBJECTS", 3),
+            ("SECTIONS", 4),
+            ("ROOMS", 5),
+            ("GENERATE", 6),
+            ("VIEW", 7),
         ]
         for name, index in nav_links:
             btn = QPushButton(name)
@@ -102,14 +147,14 @@ class AdvancedTimetableApp(QMainWindow):
         self.generate_page = GenerationPage(self.start_generation)
         self.view_page = ViewPage()
 
-        self.content_stack.addWidget(self.home_page)      # 0
-        self.content_stack.addWidget(self.setup_page)     # 1
+        self.content_stack.addWidget(self.home_page)  # 0
+        self.content_stack.addWidget(self.setup_page)  # 1
         self.content_stack.addWidget(self.teacher_page)  # 2
         self.content_stack.addWidget(self.subject_page)  # 3
         self.content_stack.addWidget(self.section_page)  # 4
-        self.content_stack.addWidget(self.room_page)     # 5
+        self.content_stack.addWidget(self.room_page)  # 5
         self.content_stack.addWidget(self.generate_page)  # 6
-        self.content_stack.addWidget(self.view_page)      # 7
+        self.content_stack.addWidget(self.view_page)  # 7
 
     def navigate_to_page(self, page_index):
         self.content_stack.setCurrentIndex(page_index)
@@ -124,7 +169,9 @@ class AdvancedTimetableApp(QMainWindow):
         title = QLabel("ADVANCED TIMETABLE GENERATOR")
         title.setFont(QFont("Arial", 28, QFont.Bold))
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        desc = QLabel("Automated scheduling with constraints, teacher loads, and optimization.")
+        desc = QLabel(
+            "Automated scheduling with constraints, teacher loads, and optimization."
+        )
         desc.setFont(QFont("Arial", 14))
         desc.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -168,7 +215,7 @@ class AdvancedTimetableApp(QMainWindow):
         df_to_json_btn.setStyleSheet(self.get_button_style("#17a2b8"))
         df_to_json_btn.clicked.connect(self.convert_teachers_df_to_json)
         json_buttons.addWidget(df_to_json_btn)
-        
+
         json_buttons.addStretch()
 
         layout.addLayout(json_buttons)
@@ -178,7 +225,9 @@ class AdvancedTimetableApp(QMainWindow):
 
     def create_quick_setup_form(self):
         form_widget = QWidget()
-        form_widget.setStyleSheet("background-color: #f8f9fa; border-radius: 10px; padding: 20px;")
+        form_widget.setStyleSheet(
+            "background-color: #f8f9fa; border-radius: 10px; padding: 20px;"
+        )
 
         layout = QVBoxLayout()
         form_layout = QFormLayout()
@@ -220,10 +269,12 @@ class AdvancedTimetableApp(QMainWindow):
                 self.teacher_page.get_data(),
                 self.subject_page.get_data(),
                 self.section_page.get_data(),
-                self.room_page.get_data()
+                self.room_page.get_data(),
             )
             TimetableJSONParser.save_to_json(file_path, structured_data)
-            QMessageBox.information(self, "Export Successful", f"Data saved to:\n{file_path}")
+            QMessageBox.information(
+                self, "Export Successful", f"Data saved to:\n{file_path}"
+            )
         except Exception as e:
             QMessageBox.critical(self, "Export Failed", str(e))
 
@@ -237,12 +288,16 @@ class AdvancedTimetableApp(QMainWindow):
                 return
 
             data = TimetableJSONParser.load_from_json(file_path)
-            teachers, subjects, sections, rooms = TimetableJSONParser.deserialize_data(data)
+            teachers, subjects, sections, rooms = TimetableJSONParser.deserialize_data(
+                data
+            )
             self.teacher_page.set_data(teachers)
             self.subject_page.set_data(subjects)
             self.section_page.set_data(sections)
             self.room_page.set_data(rooms)
-            QMessageBox.information(self, "Import Successful", "Data imported successfully!")
+            QMessageBox.information(
+                self, "Import Successful", "Data imported successfully!"
+            )
         except Exception as e:
             QMessageBox.critical(self, "Import Failed", str(e))
 
@@ -271,7 +326,7 @@ class AdvancedTimetableApp(QMainWindow):
                         "name": t.name,
                         "code": t.code,
                         "max_daily_load": t.max_daily_load,
-                        "max_weekly_load": t.max_weekly_load
+                        "max_weekly_load": t.max_weekly_load,
                     }
                     for t in teacher_objects
                 ]
@@ -286,7 +341,9 @@ class AdvancedTimetableApp(QMainWindow):
 
             TimetableJSONParser.save_to_json(file_path, structured_data)
             QMessageBox.information(
-                self, "Conversion Successful", f"Teachers DataFrame data saved to:\n{file_path}"
+                self,
+                "Conversion Successful",
+                f"Teachers DataFrame data saved to:\n{file_path}",
             )
 
         except Exception as e:
@@ -319,36 +376,276 @@ class AdvancedTimetableApp(QMainWindow):
 
         # 20 theory subjects + 10 lab subjects = 30 total
         subjects = [
-            Subject(1, "MATH101", "Mathematics I", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(2, "MATH102", "Mathematics II", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(3, "PHY101", "Physics I", 3, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(4, "PHY101P", "Physics I Lab", 3, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
-            Subject(5, "PHY102", "Physics II", 3, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(6, "PHY102P", "Physics II Lab", 3, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
-            Subject(7, "CS101", "Programming in C", 4, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(8, "CS101P", "Programming in C Lab", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
-            Subject(9, "CS201", "Data Structures", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(10, "CS201P", "Data Structures Lab", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
-            Subject(11, "CS301", "Database Systems", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(12, "CS301P", "Database Systems Lab", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
-            Subject(13, "CS401", "Operating Systems", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(14, "CS401P", "Operating Systems Lab", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
-            Subject(15, "EC101", "Electronics I", 3, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(16, "EC101P", "Electronics I Lab", 3, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
-            Subject(17, "ENG101", "English Communication", 3, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(18, "ME101", "Engineering Drawing", 3, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(19, "MATH201", "Discrete Mathematics", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(20, "CS501", "Computer Networks", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(21, "CS501P", "Computer Networks Lab", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
-            Subject(22, "CS601", "AI & Machine Learning", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(23, "CS601P", "AI & ML Lab", 4, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
-            Subject(24, "MATH301", "Probability & Stats", 3, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(25, "CS701", "Software Engineering", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(26, "CS801", "Compiler Design", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(27, "CS802", "Cloud Computing", 4, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(28, "CHEM101", "Chemistry I", 3, theory_lectures_per_week=2, lab_hours_per_week=0, lab_batch_size=0),
-            Subject(29, "CHEM101P", "Chemistry I Lab", 3, theory_lectures_per_week=0, lab_hours_per_week=2, lab_batch_size=30),
-            Subject(30, "CS901", "Cyber Security", 4, theory_lectures_per_week=3, lab_hours_per_week=0, lab_batch_size=0),
+            Subject(
+                1,
+                "MATH101",
+                "Mathematics I",
+                4,
+                theory_lectures_per_week=3,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                2,
+                "MATH102",
+                "Mathematics II",
+                4,
+                theory_lectures_per_week=3,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                3,
+                "PHY101",
+                "Physics I",
+                3,
+                theory_lectures_per_week=2,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                4,
+                "PHY101P",
+                "Physics I Lab",
+                3,
+                theory_lectures_per_week=0,
+                lab_hours_per_week=2,
+                lab_batch_size=30,
+            ),
+            Subject(
+                5,
+                "PHY102",
+                "Physics II",
+                3,
+                theory_lectures_per_week=2,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                6,
+                "PHY102P",
+                "Physics II Lab",
+                3,
+                theory_lectures_per_week=0,
+                lab_hours_per_week=2,
+                lab_batch_size=30,
+            ),
+            Subject(
+                7,
+                "CS101",
+                "Programming in C",
+                4,
+                theory_lectures_per_week=2,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                8,
+                "CS101P",
+                "Programming in C Lab",
+                4,
+                theory_lectures_per_week=0,
+                lab_hours_per_week=2,
+                lab_batch_size=30,
+            ),
+            Subject(
+                9,
+                "CS201",
+                "Data Structures",
+                4,
+                theory_lectures_per_week=3,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                10,
+                "CS201P",
+                "Data Structures Lab",
+                4,
+                theory_lectures_per_week=0,
+                lab_hours_per_week=2,
+                lab_batch_size=30,
+            ),
+            Subject(
+                11,
+                "CS301",
+                "Database Systems",
+                4,
+                theory_lectures_per_week=3,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                12,
+                "CS301P",
+                "Database Systems Lab",
+                4,
+                theory_lectures_per_week=0,
+                lab_hours_per_week=2,
+                lab_batch_size=30,
+            ),
+            Subject(
+                13,
+                "CS401",
+                "Operating Systems",
+                4,
+                theory_lectures_per_week=3,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                14,
+                "CS401P",
+                "Operating Systems Lab",
+                4,
+                theory_lectures_per_week=0,
+                lab_hours_per_week=2,
+                lab_batch_size=30,
+            ),
+            Subject(
+                15,
+                "EC101",
+                "Electronics I",
+                3,
+                theory_lectures_per_week=2,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                16,
+                "EC101P",
+                "Electronics I Lab",
+                3,
+                theory_lectures_per_week=0,
+                lab_hours_per_week=2,
+                lab_batch_size=30,
+            ),
+            Subject(
+                17,
+                "ENG101",
+                "English Communication",
+                3,
+                theory_lectures_per_week=2,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                18,
+                "ME101",
+                "Engineering Drawing",
+                3,
+                theory_lectures_per_week=2,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                19,
+                "MATH201",
+                "Discrete Mathematics",
+                4,
+                theory_lectures_per_week=3,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                20,
+                "CS501",
+                "Computer Networks",
+                4,
+                theory_lectures_per_week=3,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                21,
+                "CS501P",
+                "Computer Networks Lab",
+                4,
+                theory_lectures_per_week=0,
+                lab_hours_per_week=2,
+                lab_batch_size=30,
+            ),
+            Subject(
+                22,
+                "CS601",
+                "AI & Machine Learning",
+                4,
+                theory_lectures_per_week=3,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                23,
+                "CS601P",
+                "AI & ML Lab",
+                4,
+                theory_lectures_per_week=0,
+                lab_hours_per_week=2,
+                lab_batch_size=30,
+            ),
+            Subject(
+                24,
+                "MATH301",
+                "Probability & Stats",
+                3,
+                theory_lectures_per_week=3,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                25,
+                "CS701",
+                "Software Engineering",
+                4,
+                theory_lectures_per_week=3,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                26,
+                "CS801",
+                "Compiler Design",
+                4,
+                theory_lectures_per_week=3,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                27,
+                "CS802",
+                "Cloud Computing",
+                4,
+                theory_lectures_per_week=2,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                28,
+                "CHEM101",
+                "Chemistry I",
+                3,
+                theory_lectures_per_week=2,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
+            Subject(
+                29,
+                "CHEM101P",
+                "Chemistry I Lab",
+                3,
+                theory_lectures_per_week=0,
+                lab_hours_per_week=2,
+                lab_batch_size=30,
+            ),
+            Subject(
+                30,
+                "CS901",
+                "Cyber Security",
+                4,
+                theory_lectures_per_week=3,
+                lab_hours_per_week=0,
+                lab_batch_size=0,
+            ),
         ]
 
         # Generate sections across semesters
@@ -356,7 +653,7 @@ class AdvancedTimetableApp(QMainWindow):
         section_id = 1
         for sem in range(1, num_semesters + 1):
             for sec_idx in range(sections_per_sem):
-                sec_letter = chr(ord('A') + sec_idx)
+                sec_letter = chr(ord("A") + sec_idx)
                 sections.append(Section(section_id, f"CSE-{sem}{sec_letter}", sem, 60))
                 section_id += 1
 
@@ -385,11 +682,44 @@ class AdvancedTimetableApp(QMainWindow):
         # Assign semester-appropriate subjects (not all subjects to all sections)
         # Each semester gets a different subset of ~6 subjects
         semester_subjects = {
-            1: [1, 3, 4, 7, 8, 15, 16, 28, 29],        # Sem 1: Math I, Phy I + lab, C + lab, EC + lab, Chem + lab
-            2: [2, 5, 6, 9, 10, 17, 18],                # Sem 2: Math II, Phy II + lab, DS + lab, English, ED
-            3: [11, 12, 13, 14, 19, 20, 21],            # Sem 3: DBMS + lab, OS + lab, Discrete Math, CN + lab
-            4: [22, 23, 24, 25, 26],                     # Sem 4: AI + lab, Prob & Stats, SE, Compiler
-            5: [27, 30, 20, 21, 25, 26],                 # Sem 5: Cloud, Cyber Sec, CN + lab, SE, Compiler
+            1: [
+                1,
+                3,
+                4,
+                7,
+                8,
+                15,
+                16,
+                28,
+                29,
+            ],  # Sem 1: Math I, Phy I + lab, C + lab, EC + lab, Chem + lab
+            2: [
+                2,
+                5,
+                6,
+                9,
+                10,
+                17,
+                18,
+            ],  # Sem 2: Math II, Phy II + lab, DS + lab, English, ED
+            3: [
+                11,
+                12,
+                13,
+                14,
+                19,
+                20,
+                21,
+            ],  # Sem 3: DBMS + lab, OS + lab, Discrete Math, CN + lab
+            4: [22, 23, 24, 25, 26],  # Sem 4: AI + lab, Prob & Stats, SE, Compiler
+            5: [
+                27,
+                30,
+                20,
+                21,
+                25,
+                26,
+            ],  # Sem 5: Cloud, Cyber Sec, CN + lab, SE, Compiler
         }
 
         self.teacher_page.set_data(teachers)
@@ -408,16 +738,16 @@ class AdvancedTimetableApp(QMainWindow):
 
         # Map lab subjects to their required lab room type
         self._subject_lab_types = {
-            "4": "Physics",       # PHY101P → Physics Lab
-            "6": "Physics",       # PHY102P → Physics Lab
-            "8": "Computer Science",   # CS101P → Computer Lab
+            "4": "Physics",  # PHY101P → Physics Lab
+            "6": "Physics",  # PHY102P → Physics Lab
+            "8": "Computer Science",  # CS101P → Computer Lab
             "10": "Computer Science",  # CS201P → Computer Lab
             "12": "Computer Science",  # CS301P → Computer Lab
             "14": "Computer Science",  # CS401P → Computer Lab
             "16": "Electronics",  # EC101P → Electronics Lab
-            "21": "Networks",     # CS501P → Networks Lab
-            "23": "AI",           # CS601P → AI Lab
-            "29": "Chemistry",    # CHEM101P → Chemistry Lab
+            "21": "Networks",  # CS501P → Networks Lab
+            "23": "AI",  # CS601P → AI Lab
+            "29": "Chemistry",  # CHEM101P → Chemistry Lab
         }
 
         # ── Teacher Specializations ──
@@ -426,52 +756,44 @@ class AdvancedTimetableApp(QMainWindow):
         # A few flexible teachers handle general / lighter subjects.
         self._teacher_specializations = {
             # ── Mathematics (Dr. John Smith, Prof. Sarah Wilson) ──
-            1:  [1, 2],   # Mathematics I
-            2:  [1, 2],   # Mathematics II
-            19: [1, 2],   # Discrete Mathematics
-            24: [1, 2],   # Probability & Stats
-
+            1: [1, 2],  # Mathematics I
+            2: [1, 2],  # Mathematics II
+            19: [1, 2],  # Discrete Mathematics
+            24: [1, 2],  # Probability & Stats
             # ── Physics (Prof. Grace Hopper, Dr. James Brown) ──
-            3:  [4, 15],  # Physics I
-            4:  [4, 15],  # Physics I Lab
-            5:  [4, 15],  # Physics II
-            6:  [4, 15],  # Physics II Lab
-
+            3: [4, 15],  # Physics I
+            4: [4, 15],  # Physics I Lab
+            5: [4, 15],  # Physics II
+            6: [4, 15],  # Physics II Lab
             # ── Programming / Compilers (Dr. Dennis Ritchie, Prof. Barbara Liskov) ──
-            7:  [7, 8],   # Programming in C
-            8:  [7, 8],   # Programming in C Lab
-            26: [7, 8],   # Compiler Design
-
+            7: [7, 8],  # Programming in C
+            8: [7, 8],  # Programming in C Lab
+            26: [7, 8],  # Compiler Design
             # ── Data Structures / Algorithms (Dr. Alan Turing, Prof. Donald Knuth) ──
-            9:  [3, 10],  # Data Structures
+            9: [3, 10],  # Data Structures
             10: [3, 10],  # Data Structures Lab
-
             # ── OS & DB (Dr. Ada Lovelace, Prof. Linus Torvalds) ──
-            11: [5, 6],   # Database Systems
-            12: [5, 6],   # Database Systems Lab
-            13: [5, 6],   # Operating Systems
-            14: [5, 6],   # Operating Systems Lab
-
+            11: [5, 6],  # Database Systems
+            12: [5, 6],  # Database Systems Lab
+            13: [5, 6],  # Operating Systems
+            14: [5, 6],  # Operating Systems Lab
             # ── Electronics (Dr. Alan Turing, Dr. James Brown) ──
             15: [3, 15],  # Electronics I
             16: [3, 15],  # Electronics I Lab
-
             # ── Networks / Cloud (Dr. Tim Berners-Lee, Dr. Vint Cerf) ──
             20: [9, 11],  # Computer Networks
             21: [9, 11],  # Computer Networks Lab
             27: [9, 11],  # Cloud Computing
-
             # ── AI & ML / Cyber Security (Prof. Shafi Goldwasser, Prof. Donald Knuth) ──
-            22: [12, 10], # AI & Machine Learning
-            23: [12, 10], # AI & ML Lab
-            30: [12, 11], # Cyber Security
-
+            22: [12, 10],  # AI & Machine Learning
+            23: [12, 10],  # AI & ML Lab
+            30: [12, 11],  # Cyber Security
             # ── General subjects (Dr. Raj Patel, Prof. Emily Chen) ──
-            17: [13, 14], # English Communication
-            18: [13, 14], # Engineering Drawing
-            25: [13, 14], # Software Engineering
-            28: [13, 14], # Chemistry I
-            29: [13, 14], # Chemistry I Lab
+            17: [13, 14],  # English Communication
+            18: [13, 14],  # Engineering Drawing
+            25: [13, 14],  # Software Engineering
+            28: [13, 14],  # Chemistry I
+            29: [13, 14],  # Chemistry I Lab
         }
 
         # ── Populate teacher page's subject map from specializations ──
@@ -500,7 +822,7 @@ class AdvancedTimetableApp(QMainWindow):
         # Populate room page's section map from section-room assignments
         # section_id -> room_id (int) ==> room_id -> section_id (int)
         for sec_id_str, room_id in self._section_room_assignments.items():
-             self.room_page.room_section_map[room_id] = int(sec_id_str)
+            self.room_page.room_section_map[room_id] = int(sec_id_str)
         self.room_page.update_table()
 
     def initialize_sample_data(self):
@@ -509,163 +831,309 @@ class AdvancedTimetableApp(QMainWindow):
         subjects = self.subject_page.get_data()
         rooms = self.room_page.get_data()
         teachers = self.teacher_page.get_data()
-        QMessageBox.information(self, "Initialized",
+        QMessageBox.information(
+            self,
+            "Initialized",
             f"Sample data created!\n"
             f"{len(sections)} sections, {len(subjects)} subjects,\n"
-            f"{len(teachers)} teachers, {len(rooms)} rooms")
+            f"{len(teachers)} teachers, {len(rooms)} rooms",
+        )
 
     # ---------------- GENERATION THREAD ----------------
     def start_generation(self):
-        teachers = self.teacher_page.get_data()
-        subjects = self.subject_page.get_data()
-        sections = self.section_page.get_data()
-        rooms = self.room_page.get_data()
+        try:
+            logger.info("Starting generation process...")
 
-        if not teachers or not subjects or not sections or not rooms:
-            QMessageBox.warning(self, "Missing Data", "Please setup all data before generation.")
-            return
+            teachers = self.teacher_page.get_data()
+            subjects = self.subject_page.get_data()
+            sections = self.section_page.get_data()
+            rooms = self.room_page.get_data()
 
-        # Serialize dataclass objects to dicts for the generator thread
-        teachers_dicts = [
-            {"id": t.id, "name": t.name, "code": t.code,
-             "max_daily_load": t.max_daily_load, "max_weekly_load": t.max_weekly_load}
-            for t in teachers
-        ]
-        subjects_dicts = [
-            {"id": s.id, "code": s.code, "name": s.name, "credits": s.credits,
-             "theory_lectures_per_week": s.theory_lectures_per_week,
-             "lab_hours_per_week": s.lab_hours_per_week,
-             "lab_batch_size": s.lab_batch_size}
-            for s in subjects
-        ]
-        sections_dicts = [
-            {"id": s.id, "name": s.name, "semester": s.semester, "strength": s.strength}
-            for s in sections
-        ]
-        rooms_dicts = [
-            {"id": r.id, "name": r.name, "capacity": r.capacity,
-             "type": r.type if isinstance(r.type, str) else r.type.value,
-             "lab_type": r.lab_type}
-            for r in rooms
-        ]
+            if not teachers:
+                QMessageBox.warning(
+                    self,
+                    "Missing Data",
+                    "No teachers found. Please add teachers before generation.",
+                )
+                return
+            if not subjects:
+                QMessageBox.warning(
+                    self,
+                    "Missing Data",
+                    "No subjects found. Please add subjects before generation.",
+                )
+                return
+            if not sections:
+                QMessageBox.warning(
+                    self,
+                    "Missing Data",
+                    "No sections found. Please add sections before generation.",
+                )
+                return
+            if not rooms:
+                QMessageBox.warning(
+                    self,
+                    "Missing Data",
+                    "No rooms found. Please add rooms before generation.",
+                )
+                return
 
-        # ── Specialization-aware teacher assignment ──
-        # Build subject_id → [teacher_ids] from teacher page's UI map
-        specializations = {}
-        if hasattr(self, 'teacher_page') and self.teacher_page.teacher_subject_map:
-            for tid, subj_ids in self.teacher_page.teacher_subject_map.items():
-                for sid in subj_ids:
-                    specializations.setdefault(sid, []).append(tid)
-        else:
-            specializations = getattr(self, '_teacher_specializations', {})
-        subject_teacher_assignments = {}
-        teacher_ids = [t.id for t in teachers]
-        teacher_load = {t.id: 0 for t in teachers}
+            logger.info(
+                f"Data loaded: {len(teachers)} teachers, {len(subjects)} subjects, {len(sections)} sections, {len(rooms)} rooms"
+            )
 
-        # Use semester-subject mapping if available
-        semester_subjects = getattr(self, '_semester_subjects', None)
+            # Validate data structures
+            if not hasattr(teachers, "__iter__") or not hasattr(subjects, "__iter__"):
+                raise ValueError("Invalid data structure for teachers or subjects")
 
-        # Count how many sections will use each subject
-        subject_usage_count = {}
-        if semester_subjects:
+            # Validate teacher data
+            for t in teachers:
+                if not hasattr(t, "id") or not hasattr(t, "name"):
+                    raise ValueError(f"Invalid teacher object: {t}")
+
+            # Validate subject data
+            for s in subjects:
+                if not hasattr(s, "id") or not hasattr(s, "name"):
+                    raise ValueError(f"Invalid subject object: {s}")
+
+            # Validate section data
             for sec in sections:
-                sem_subjs = semester_subjects.get(sec.semester, [])
-                for sid in sem_subjs:
-                    subject_usage_count[sid] = subject_usage_count.get(sid, 0) + 1
-        else:
-            for subj in subjects:
-                subject_usage_count[subj.id] = len(sections)
+                if not hasattr(sec, "id") or not hasattr(sec, "name"):
+                    raise ValueError(f"Invalid section object: {sec}")
 
-        for subj in subjects:
-            usage = subject_usage_count.get(subj.id, 0)
-            if usage == 0:
-                continue
-            slots_per_section = subj.theory_lectures_per_week
-            if subj.lab_hours_per_week > 0 and subj.lab_batch_size > 0:
-                batches = max(1, math.ceil(60 / subj.lab_batch_size))
-                lab_sessions = max(1, subj.lab_hours_per_week // 2)
-                slots_per_section += batches * lab_sessions * 2
-            total_load = slots_per_section * usage
+            # Validate room data
+            for r in rooms:
+                if not hasattr(r, "id") or not hasattr(r, "name"):
+                    raise ValueError(f"Invalid room object: {r}")
 
-            # Pick from eligible specialists (or fall back to all teachers)
-            eligible = specializations.get(subj.id, teacher_ids)
-            best_tid = min(eligible, key=lambda tid: teacher_load[tid])
-            subject_teacher_assignments[str(subj.id)] = [best_tid]
-            teacher_load[best_tid] += total_load
+            # Serialize dataclass objects to dicts for the generator thread
+            teachers_dicts = [
+                {
+                    "id": t.id,
+                    "name": t.name,
+                    "code": t.code,
+                    "max_daily_load": t.max_daily_load,
+                    "max_weekly_load": t.max_weekly_load,
+                }
+                for t in teachers
+            ]
+            subjects_dicts = [
+                {
+                    "id": s.id,
+                    "code": s.code,
+                    "name": s.name,
+                    "credits": s.credits,
+                    "theory_lectures_per_week": s.theory_lectures_per_week,
+                    "lab_hours_per_week": s.lab_hours_per_week,
+                    "lab_batch_size": s.lab_batch_size,
+                }
+                for s in subjects
+            ]
+            sections_dicts = [
+                {
+                    "id": s.id,
+                    "name": s.name,
+                    "semester": s.semester,
+                    "strength": s.strength,
+                }
+                for s in sections
+            ]
+            rooms_dicts = [
+                {
+                    "id": r.id,
+                    "name": r.name,
+                    "capacity": r.capacity,
+                    "type": r.type if isinstance(r.type, str) else r.type.value,
+                    "lab_type": r.lab_type,
+                }
+                for r in rooms
+            ]
 
-        # Section-subject assignments from section page's UI map
-        section_subject_assignments = {}
-        if hasattr(self, 'section_page') and self.section_page.section_subject_map:
-            for sec in sections:
-                assigned = self.section_page.section_subject_map.get(sec.id, [])
-                if assigned:
-                    section_subject_assignments[str(sec.id)] = assigned
-        if not section_subject_assignments:
-            # Fallback to semester mapping or all subjects
-            semester_subjects = getattr(self, '_semester_subjects', None)
+            # ── Specialization-aware teacher assignment ──
+            # Build subject_id → [teacher_ids] from teacher page's UI map
+            specializations = {}
+            if hasattr(self, "teacher_page") and self.teacher_page.teacher_subject_map:
+                for tid, subj_ids in self.teacher_page.teacher_subject_map.items():
+                    for sid in subj_ids:
+                        specializations.setdefault(sid, []).append(tid)
+            else:
+                specializations = getattr(self, "_teacher_specializations", {})
+
+            if not specializations:
+                logger.warning(
+                    "No teacher specializations found, using all teachers for all subjects"
+                )
+                specializations = {s.id: [t.id for t in teachers] for s in subjects}
+
+            subject_teacher_assignments = {}
+            teacher_ids = [t.id for t in teachers]
+            teacher_load = {t.id: 0 for t in teachers}
+
+            # Use semester-subject mapping if available
+            semester_subjects = getattr(self, "_semester_subjects", None)
+
+            # Count how many sections will use each subject
+            subject_usage_count = {}
             if semester_subjects:
                 for sec in sections:
                     sem_subjs = semester_subjects.get(sec.semester, [])
-                    section_subject_assignments[str(sec.id)] = sem_subjs
+                    for sid in sem_subjs:
+                        subject_usage_count[sid] = subject_usage_count.get(sid, 0) + 1
             else:
-                all_subject_ids = [s.id for s in subjects]
+                for subj in subjects:
+                    subject_usage_count[subj.id] = len(sections)
+
+            for subj in subjects:
+                usage = subject_usage_count.get(subj.id, 0)
+                if usage == 0:
+                    continue
+                slots_per_section = subj.theory_lectures_per_week
+                if subj.lab_hours_per_week > 0 and subj.lab_batch_size > 0:
+                    batches = max(1, math.ceil(60 / subj.lab_batch_size))
+                    lab_sessions = max(1, subj.lab_hours_per_week // 2)
+                    slots_per_section += batches * lab_sessions * 2
+                total_load = slots_per_section * usage
+
+                # Pick from eligible specialists (or fall back to all teachers)
+                eligible = specializations.get(subj.id, teacher_ids)
+                if not eligible:
+                    logger.warning(f"No teachers found for subject {subj.id}, skipping")
+                    continue
+                best_tid = min(eligible, key=lambda tid: teacher_load.get(tid, 0))
+                subject_teacher_assignments[str(subj.id)] = [best_tid]
+                teacher_load[best_tid] = teacher_load.get(best_tid, 0) + total_load
+
+            # Section-subject assignments from section page's UI map
+            section_subject_assignments = {}
+            if hasattr(self, "section_page") and self.section_page.section_subject_map:
                 for sec in sections:
-                    section_subject_assignments[str(sec.id)] = all_subject_ids
+                    assigned = self.section_page.section_subject_map.get(sec.id, [])
+                    if assigned:
+                        section_subject_assignments[str(sec.id)] = assigned
+            if not section_subject_assignments:
+                # Fallback to semester mapping or all subjects
+                semester_subjects = getattr(self, "_semester_subjects", None)
+                if semester_subjects:
+                    for sec in sections:
+                        sem_subjs = semester_subjects.get(sec.semester, [])
+                        section_subject_assignments[str(sec.id)] = sem_subjs
+                else:
+                    all_subject_ids = [s.id for s in subjects]
+                    for sec in sections:
+                        section_subject_assignments[str(sec.id)] = all_subject_ids
 
-        # Build subject → lab_type mapping
-        subject_lab_types = getattr(self, '_subject_lab_types', {})
+            # Validate section_subject_assignments
+            if not section_subject_assignments:
+                QMessageBox.warning(
+                    self,
+                    "Missing Data",
+                    "No subjects assigned to any section. Please assign subjects to sections.",
+                )
+                return
 
-        # Section → classroom pre-assignment
-        # Read from room page's UI map (room_id -> section_id) ==> (section_id -> room_id)
-        section_room_assignments = {}
-        if hasattr(self, 'room_page') and self.room_page.room_section_map:
-            for rid, sid in self.room_page.room_section_map.items():
-                section_room_assignments[str(sid)] = rid
-        else:
-             section_room_assignments = getattr(self, '_section_room_assignments', {})
+            # Build subject → lab_type mapping
+            subject_lab_types = getattr(self, "_subject_lab_types", {})
 
-        config = {
-            "teachers": teachers_dicts,
-            "subjects": subjects_dicts,
-            "sections": sections_dicts,
-            "rooms": rooms_dicts,
-            "subject_teacher_assignments": subject_teacher_assignments,
-            "section_subject_assignments": section_subject_assignments,
-            "subject_lab_types": subject_lab_types,
-            "section_room_assignments": section_room_assignments,
-        }
+            # Section → classroom pre-assignment
+            # Read from room page's UI map (room_id -> section_id) ==> (section_id -> room_id)
+            section_room_assignments = {}
+            if hasattr(self, "room_page") and self.room_page.room_section_map:
+                for rid, sid in self.room_page.room_section_map.items():
+                    section_room_assignments[str(sid)] = rid
+            else:
+                section_room_assignments = getattr(
+                    self, "_section_room_assignments", {}
+                )
 
-        self.generation_thread = TimetableGeneratorThread(config)
-        self.generation_thread.generation_completed.connect(self.on_generation_completed)
-        self.generation_thread.generation_failed.connect(self.on_generation_failed)
-        if hasattr(self, 'generate_page') and hasattr(self.generate_page, 'progress_bar'):
-            self.generation_thread.progress_updated.connect(self.generate_page.update_progress)
-            self.generation_thread.status_updated.connect(self.generate_page.update_status)
-        self.generate_page.generate_btn.setEnabled(False)
-        self.generate_page.generate_btn.setText("Generating...")
-        self.generation_thread.start()
+            config = {
+                "teachers": teachers_dicts,
+                "subjects": subjects_dicts,
+                "sections": sections_dicts,
+                "rooms": rooms_dicts,
+                "subject_teacher_assignments": subject_teacher_assignments,
+                "section_subject_assignments": section_subject_assignments,
+                "subject_lab_types": subject_lab_types,
+                "section_room_assignments": section_room_assignments,
+            }
+
+            logger.info("Starting generation thread...")
+            self.generation_thread = TimetableGeneratorThread(config)
+            self.generation_thread.generation_completed.connect(
+                self.on_generation_completed
+            )
+            self.generation_thread.generation_failed.connect(self.on_generation_failed)
+            if hasattr(self, "generate_page") and hasattr(
+                self.generate_page, "progress_bar"
+            ):
+                self.generation_thread.progress_updated.connect(
+                    self.generate_page.update_progress
+                )
+                self.generation_thread.status_updated.connect(
+                    self.generate_page.update_status
+                )
+            self.generate_page.generate_btn.setEnabled(False)
+            self.generate_page.generate_btn.setText("Generating...")
+            self.generation_thread.start()
+
+        except Exception as e:
+            logger.exception(f"Error in start_generation: {e}")
+            error_details = traceback.format_exc()
+            QMessageBox.critical(
+                self,
+                "Generation Error",
+                f"An error occurred while preparing generation:\n\n{str(e)}\n\nSee app.log for details.",
+            )
+            if hasattr(self, "generate_page") and hasattr(
+                self.generate_page, "generate_btn"
+            ):
+                self.generate_page.generate_btn.setEnabled(True)
+                self.generate_page.generate_btn.setText("GENERATE")
 
     def on_generation_completed(self, timetables):
-        self.generated_timetables = timetables
         try:
-            TimetableJSONParser.save_to_json("output/generated_timetables.json", timetables)
-        except Exception:
-            pass
-        self.generate_page.generate_btn.setEnabled(True)
-        self.generate_page.generate_btn.setText("GENERATE")
+            logger.info("Generation completed successfully")
+            self.generated_timetables = timetables
+            try:
+                TimetableJSONParser.save_to_json(
+                    "output/generated_timetables.json", timetables
+                )
+            except Exception as save_err:
+                logger.warning(f"Failed to save timetable: {save_err}")
 
-        # Count items for summary
-        num_sec = len(timetables.get('sections', {})) if isinstance(timetables, dict) and 'sections' in timetables else len(timetables)
-        QMessageBox.information(self, "Success",
-            f"Timetables generated successfully!\n{num_sec} section timetables created.")
-        self.view_page.update_view(self.generated_timetables)
-        self.room_page.update_table()
-        self.navigate_to_page(7)
+            self.generate_page.generate_btn.setEnabled(True)
+            self.generate_page.generate_btn.setText("GENERATE")
+
+            # Count items for summary
+            num_sec = (
+                len(timetables.get("sections", {}))
+                if isinstance(timetables, dict) and "sections" in timetables
+                else len(timetables)
+            )
+            QMessageBox.information(
+                self,
+                "Success",
+                f"Timetables generated successfully!\n{num_sec} section timetables created.",
+            )
+            self.view_page.update_view(self.generated_timetables)
+            self.room_page.update_table()
+            self.navigate_to_page(7)
+        except Exception as e:
+            logger.exception(f"Error in on_generation_completed: {e}")
+            self.generate_page.generate_btn.setEnabled(True)
+            self.generate_page.generate_btn.setText("GENERATE")
+            QMessageBox.critical(
+                self, "Error", f"An error occurred after generation:\n\n{str(e)}"
+            )
 
     def on_generation_failed(self, error_message):
+        logger.error(f"Generation failed: {error_message}")
         self.generate_page.generate_btn.setEnabled(True)
         self.generate_page.generate_btn.setText("GENERATE")
-        QMessageBox.critical(self, "Generation Failed", f"Could not generate timetable:\n{error_message}")
+        QMessageBox.critical(
+            self,
+            "Generation Failed",
+            f"Could not generate timetable:\n\n{error_message}\n\nSee app.log for details.",
+        )
 
     # ---------------- UTILS ----------------
     def get_button_style(self, color):
@@ -683,8 +1151,9 @@ class AdvancedTimetableApp(QMainWindow):
         """
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys
+
     app = QApplication(sys.argv)
     main_win = AdvancedTimetableApp()
     main_win.show()
